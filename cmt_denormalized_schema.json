@@ -1,0 +1,784 @@
+{
+  "project": "cmt_denormalized",
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "hasBid_Inv",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "Conference",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "siteURL",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "acceptsHardcopySubmissions",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "logoURL",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "date",
+          "column_name_ch": "",
+          "value_type": "date",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "",
+          "value_type": "character varying(6)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "reviewsPerPaper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "Document",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "writtenBy",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "comment",
+          "column_name_ch": "",
+          "value_type": "character varying(191)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "Paper",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "paperID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "rejectedBy",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "readByMeta-Reviewer",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "hasAuthor",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "title",
+          "column_name_ch": "",
+          "value_type": "character varying(113)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "hasDecision",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "acceptedBy",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "Person",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "",
+          "value_type": "character varying(22)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "email",
+          "column_name_ch": "",
+          "value_type": "character varying(41)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "assignedByReviewer",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "Preference",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommittee",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "label",
+          "column_name_ch": "",
+          "value_type": "character varying(29)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeChair",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeMember",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "maxPapers",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "addedBy",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "acceptPaper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "assignReviewer",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "co-writePaper",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Co-author",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "detailsEnteredBy",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "enableVirtualMeeting",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "endReview",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommitteeChair",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Review",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "enterReviewCriteria",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "finalizePaperAssignment",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConflictOfInterest",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Person",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Document",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasProgramCommitteeMember",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommittee",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasSubjectArea",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "SubjectArea",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "markConflictOfInterest",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "paperAssignmentToolsRunBy",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "reviewerBiddingStartedBy",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    {
+      "table_name_en": "setMaxPapers",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    {
+      "table_name_en": "submitPaper",
+      "table_name_ch": "",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "",
+      "columns": [
+        {
+          "column_name_en": "Author",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    }
+  ]
+}
