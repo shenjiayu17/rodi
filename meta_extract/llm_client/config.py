@@ -1,0 +1,14 @@
+
+LLM_API_BASE = 'https://api.deepseek.com/v1/chat/completions'
+LLM_MODEL = 'deepseek-v4-flash'
+LLM_API_KEY = 'sk-a19a69d7baa541cbb5e8b1f4ebad5b14'
+
+LLM_MAX_RETRIES = 3
+LLM_RETRY_DELAY = 2.0
+LLM_BACKOFF_MULTIPLIER = 2.0
+LLM_TIMEOUT = (10, 300)
+LLM_TEMPERATURE = 0.7
+LLM_MAX_TOKENS = 8192
+LLM_VERIFY_SSL = False
+LLM_STREAM = False
+LLM_EXTRA_BODY = {}

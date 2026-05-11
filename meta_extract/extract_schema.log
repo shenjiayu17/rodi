@@ -1,0 +1,1547 @@
+2026-05-11 15:35:50,735 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-11 15:35:50,736 [INFO] Found 1 SQL files
+2026-05-11 15:35:50,736 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-11 15:35:50,737 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-11 15:35:50,750 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-11 15:35:50,750 [INFO] Base extraction complete: 30 tables
+2026-05-11 15:35:50,968 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 15:35:50,969 [INFO] Calling LLM to enrich schema...
+2026-05-11 15:35:50,969 [INFO] Sending streaming request to https://api.deepseek.com/v1/chat/completions, model is deepseek-v4-flash, temperature is 0.2, max_tokens is 2000, extra_body is {}
+2026-05-11 15:36:34,505 [WARNING] LLM call failed (attempt 1/3): Expecting value: line 1 column 1 (char 0)
+2026-05-11 15:36:35,505 [INFO] Sending streaming request to https://api.deepseek.com/v1/chat/completions, model is deepseek-v4-flash, temperature is 0.2, max_tokens is 2000, extra_body is {}
+2026-05-11 15:37:17,782 [WARNING] LLM call failed (attempt 2/3): Expecting value: line 1 column 1 (char 0)
+2026-05-11 15:37:19,783 [INFO] Sending streaming request to https://api.deepseek.com/v1/chat/completions, model is deepseek-v4-flash, temperature is 0.2, max_tokens is 2000, extra_body is {}
+2026-05-11 15:38:01,015 [WARNING] LLM call failed (attempt 3/3): Expecting value: line 1 column 1 (char 0)
+2026-05-11 15:38:01,015 [ERROR] LLM call failed after 3 retries
+2026-05-11 15:38:01,015 [ERROR] LLM enrichment failed: LLM call failed after 3 retries: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 513, in extract_from_directory
+    enrich_schema_with_llm(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        ddl_sql_text='\n\n'.join(ddl_contexts),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        schema=result,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 458, in enrich_schema_with_llm
+    raw = client.chat(prompt)
+  File "D:\work\github\rodi\meta_extract\llm_client\llm_client.py", line 91, in chat
+    raise RuntimeError(f'LLM call failed after {self._max_retries} retries: {last_exception}')
+RuntimeError: LLM call failed after 3 retries: Expecting value: line 1 column 1 (char 0)
+2026-05-11 15:38:01,017 [INFO] Extraction finished
+2026-05-11 15:38:58,029 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-11 15:38:58,029 [INFO] Found 1 SQL files
+2026-05-11 15:38:58,029 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-11 15:38:58,030 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-11 15:38:58,043 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-11 15:38:58,043 [INFO] Base extraction complete: 30 tables
+2026-05-11 15:38:58,190 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 15:38:58,190 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 15:38:58,190 [INFO] Calling LLM to enrich schema...
+2026-05-11 15:38:58,191 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 15:41:00,907 [INFO] LLM response (15274 chars):
+{
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "table_description": "存储论文作者信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "作者唯一标识"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "作者类型标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标",
+      "table_description": "评审者对论文的投标信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "投标唯一标识"
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "调整人",
+          "column_description": "调整投标的用户ID"
+        },
+        {
+          "column_name_en": "hasBid_Inv",
+          "column_name_ch": "投标逆关系",
+          "column_description": "投标的逆关系ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Conference",
+      "table_name_ch": "会议",
+      "table_description": "存储会议基本信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "会议唯一标识"
+        },
+        {
+          "column_name_en": "siteURL",
+          "column_name_ch": "网站地址",
+          "column_description": "会议网站URL"
+        },
+        {
+          "column_name_en": "acceptsHardcopySubmissions",
+          "column_name_ch": "接受纸质稿",
+          "column_description": "是否接受纸质投稿"
+        },
+        {
+          "column_name_en": "logoURL",
+          "column_name_ch": "标志URL",
+          "column_description": "会议标志URL"
+        },
+        {
+          "column_name_en": "date",
+          "column_name_ch": "日期",
+          "column_description": "会议日期"
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "名称",
+          "column_description": "会议名称"
+        },
+        {
+          "column_name_en": "reviewsPerPaper",
+          "column_name_ch": "每篇评审数",
+          "column_description": "每篇论文分配的评审人数"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Document",
+      "table_name_ch": "文档",
+      "table_description": "所有文档基表，含论文和评审",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "文档唯一标识"
+        },
+        {
+          "column_name_en": "writtenBy",
+          "column_name_ch": "撰写人",
+          "column_description": "文档作者用户ID"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "文档类型（论文/评审等）"
+        },
+        {
+          "column_name_en": "comment",
+          "column_name_ch": "备注",
+          "column_description": "文档备注信息"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Paper",
+      "table_name_ch": "论文",
+      "table_description": "存储论文详细信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "论文唯一标识"
+        },
+        {
+          "column_name_en": "paperID",
+          "column_name_ch": "论文编号",
+          "column_description": "论文唯一编号"
+        },
+        {
+          "column_name_en": "rejectedBy",
+          "column_name_ch": "拒绝人",
+          "column_description": "拒绝论文的用户ID"
+        },
+        {
+          "column_name_en": "readByMeta-Reviewer",
+          "column_name_ch": "元评审阅读人",
+          "column_description": "元评审阅读论文的用户ID"
+        },
+        {
+          "column_name_en": "hasAuthor",
+          "column_name_ch": "作者",
+          "column_description": "论文作者ID"
+        },
+        {
+          "column_name_en": "title",
+          "column_name_ch": "标题",
+          "column_description": "论文标题"
+        },
+        {
+          "column_name_en": "hasDecision",
+          "column_name_ch": "决定",
+          "column_description": "决策ID（接受/拒绝）"
+        },
+        {
+          "column_name_en": "acceptedBy",
+          "column_name_ch": "接受人",
+          "column_description": "接受论文的用户ID"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "论文类型标识"
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "评审人",
+          "column_description": "分配的主评审人ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Person",
+      "table_name_ch": "人员",
+      "table_description": "存储所有人员基本信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "人员唯一标识"
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "姓名",
+          "column_description": "人员姓名"
+        },
+        {
+          "column_name_en": "email",
+          "column_name_ch": "电子邮件",
+          "column_description": "电子邮件地址"
+        },
+        {
+          "column_name_en": "assignedByReviewer",
+          "column_name_ch": "评审分配人",
+          "column_description": "分配该人员的评审人ID"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "人员类型标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Preference",
+      "table_name_ch": "偏好",
+      "table_description": "存储评审偏好信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "偏好唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommittee",
+      "table_name_ch": "程序委员会",
+      "table_description": "存储程序委员会组",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "委员会唯一标识"
+        },
+        {
+          "column_name_en": "label",
+          "column_name_ch": "标签",
+          "column_description": "委员会组标签"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeChair",
+      "table_name_ch": "委员会主席",
+      "table_description": "程序委员会主席信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "主席唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeMember",
+      "table_name_ch": "委员会成员",
+      "table_description": "程序委员会成员信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "成员唯一标识"
+        },
+        {
+          "column_name_en": "maxPapers",
+          "column_name_ch": "最大论文数",
+          "column_description": "该成员可评审的最大论文数"
+        },
+        {
+          "column_name_en": "addedBy",
+          "column_name_ch": "添加人",
+          "column_description": "添加该成员的用户ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒绝",
+      "table_description": "存储拒绝决策信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "拒绝决策唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "学科领域",
+      "table_description": "存储论文的学科领域",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "学科领域唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户",
+      "table_description": "存储系统用户信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "用户唯一标识"
+        },
+        {
+          "column_name_en": "acceptPaper",
+          "column_name_ch": "接受论文",
+          "column_description": "用户是否可接受论文"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "用户类型标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "assignReviewer",
+      "table_name_ch": "分配评审",
+      "table_description": "管理员分配评审人",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行分配的管理员ID"
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "评审人",
+          "column_description": "被分配的评审人ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "co-writePaper",
+      "table_name_ch": "合著论文",
+      "table_description": "论文合著关系",
+      "columns": [
+        {
+          "column_name_en": "Co-author",
+          "column_name_ch": "合著者",
+          "column_description": "合著作者ID"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文",
+          "column_description": "论文ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "detailsEnteredBy",
+      "table_name_ch": "录入详情",
+      "table_description": "会议详情由管理员录入",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "录入详情的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "enableVirtualMeeting",
+      "table_name_ch": "启用虚拟会议",
+      "table_description": "管理员启用虚拟会议",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "启用的管理员ID"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "被启用的会议ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "endReview",
+      "table_name_ch": "结束评审",
+      "table_description": "主席结束评审",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommitteeChair",
+          "column_name_ch": "委员会主席",
+          "column_description": "结束评审的主席ID"
+        },
+        {
+          "column_name_en": "Review",
+          "column_name_ch": "评审",
+          "column_description": "被结束的评审文档ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "enterReviewCriteria",
+      "table_name_ch": "输入评审标准",
+      "table_description": "管理员输入评审标准",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "输入标准的管理员ID"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "所属会议ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "finalizePaperAssignment",
+      "table_name_ch": "最终分配论文",
+      "table_description": "管理员最终确定论文分配",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行分配的管理员ID"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "所涉会议ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "邮寄清单打印",
+      "table_description": "纸质邮寄清单打印记录",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行打印的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "会议成员",
+      "table_description": "会议与成员关联",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议ID"
+        },
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "会议成员",
+          "column_description": "会议成员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConflictOfInterest",
+      "table_name_ch": "利益冲突",
+      "table_description": "人员与文档的利益冲突关系",
+      "columns": [
+        {
+          "column_name_en": "Person",
+          "column_name_ch": "人员",
+          "column_description": "冲突人员ID"
+        },
+        {
+          "column_name_en": "Document",
+          "column_name_ch": "文档",
+          "column_description": "冲突文档ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasProgramCommitteeMember",
+      "table_name_ch": "委员会成员关系",
+      "table_description": "程序委员会与成员关联",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommittee",
+          "column_name_ch": "程序委员会",
+          "column_description": "程序委员会ID"
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "委员会成员",
+          "column_description": "委员会成员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasSubjectArea",
+      "table_name_ch": "论文领域",
+      "table_description": "论文所属学科领域",
+      "columns": [
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文",
+          "column_description": "论文ID"
+        },
+        {
+          "column_name_en": "SubjectArea",
+          "column_name_ch": "学科领域",
+          "column_description": "学科领域ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "markConflictOfInterest",
+      "table_name_ch": "标记利益冲突",
+      "table_description": "会议成员标记论文利益冲突",
+      "columns": [
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "会议成员",
+          "column_description": "标记的会议成员ID"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文",
+          "column_description": "被标记的论文ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "paperAssignmentToolsRunBy",
+      "table_name_ch": "运行分配工具",
+      "table_description": "管理员运行论文分配工具",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "运行工具的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "reviewerBiddingStartedBy",
+      "table_name_ch": "启动投标",
+      "table_description": "管理员启动评审人投标",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "启动投标的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "setMaxPapers",
+      "table_name_ch": "设置最大论文数",
+      "table_description": "管理员设置委员会成员最大论文数",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "设置的管理员ID"
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "委员会成员",
+          "column_description": "被设置的委员会成员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "submitPaper",
+      "table_name_ch": "提交论文",
+      "table_description": "作者提交论文",
+      "columns": [
+        {
+          "column_name_en": "Author",
+          "column_name_ch": "作者",
+          "column_description": "提交论文的作者ID"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文",
+          "column_description": "提交的论文ID"
+        }
+      ]
+    }
+  ]
+}
+2026-05-11 15:41:00,909 [INFO] LLM responded (raw_len=15274 chars)
+2026-05-11 15:41:00,909 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 15:41:00,909 [INFO] LLM enrichment merged successfully
+2026-05-11 15:41:00,909 [INFO] Extraction finished
+2026-05-11 15:50:38,316 [INFO] 
+================== START ======================
+2026-05-11 15:50:38,316 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-11 15:50:38,317 [INFO] Found 1 SQL files
+2026-05-11 15:50:38,317 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-11 15:50:38,318 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-11 15:50:38,332 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-11 15:50:38,332 [INFO] Base extraction complete: 30 tables
+2026-05-11 15:50:38,484 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 15:50:38,484 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 15:50:38,484 [INFO] Calling LLM to enrich schema...
+2026-05-11 15:50:38,484 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 15:52:39,150 [INFO] LLM response (15965 chars):
+{
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "table_description": "存储论文作者信息，继承自Person和User。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "作者ID",
+          "column_description": "作者唯一标识，外键引用Person和User。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "作者类型",
+          "column_description": "作者类型标识（如主作者、合著者等）。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标",
+      "table_description": "存储审稿人对论文的投标或兴趣信息。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "投标ID",
+          "column_description": "投标唯一标识。"
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "调整者",
+          "column_description": "进行投标调整的用户ID。"
+        },
+        {
+          "column_name_en": "hasBid_Inv",
+          "column_name_ch": "逆投标",
+          "column_description": "投标的逆关系标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Conference",
+      "table_name_ch": "会议",
+      "table_description": "存储会议基本信息，包括日期、名称、审稿数量等。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "会议ID",
+          "column_description": "会议唯一标识。"
+        },
+        {
+          "column_name_en": "siteURL",
+          "column_name_ch": "会议网址",
+          "column_description": "会议官方网站URL。"
+        },
+        {
+          "column_name_en": "acceptsHardcopySubmissions",
+          "column_name_ch": "接受纸质投稿",
+          "column_description": "是否接受纸质投稿（0/1）。"
+        },
+        {
+          "column_name_en": "logoURL",
+          "column_name_ch": "会议图标",
+          "column_description": "会议Logo的URL。"
+        },
+        {
+          "column_name_en": "date",
+          "column_name_ch": "会议日期",
+          "column_description": "会议举办的日期。"
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "会议名称",
+          "column_description": "会议简短名称。"
+        },
+        {
+          "column_name_en": "reviewsPerPaper",
+          "column_name_ch": "每篇审稿数",
+          "column_description": "每篇论文分配的审稿人数。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Document",
+      "table_name_ch": "文档",
+      "table_description": "文档基类，存储文档通用信息（如评论）。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "文档ID",
+          "column_description": "文档唯一标识。"
+        },
+        {
+          "column_name_en": "writtenBy",
+          "column_name_ch": "编写者",
+          "column_description": "文档编写者ID。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "文档类型",
+          "column_description": "文档类型标识（如论文、审稿等）。"
+        },
+        {
+          "column_name_en": "comment",
+          "column_name_ch": "评论",
+          "column_description": "文档相关的评论或备注。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Paper",
+      "table_name_ch": "论文",
+      "table_description": "存储论文详细信息，包括标题、审稿人、决策等。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "论文ID",
+          "column_description": "论文唯一标识，继承自Document。"
+        },
+        {
+          "column_name_en": "paperID",
+          "column_name_ch": "论文编号",
+          "column_description": "论文的额外编号。"
+        },
+        {
+          "column_name_en": "rejectedBy",
+          "column_name_ch": "拒绝者",
+          "column_description": "拒绝该论文的用户ID。"
+        },
+        {
+          "column_name_en": "readByMeta-Reviewer",
+          "column_name_ch": "元审稿人阅读",
+          "column_description": "元审稿人是否阅读过。"
+        },
+        {
+          "column_name_en": "hasAuthor",
+          "column_name_ch": "作者",
+          "column_description": "论文的主要作者ID。"
+        },
+        {
+          "column_name_en": "title",
+          "column_name_ch": "论文标题",
+          "column_description": "论文的标题。"
+        },
+        {
+          "column_name_en": "hasDecision",
+          "column_name_ch": "决策",
+          "column_description": "论文的决策结果（如接受/拒绝）。"
+        },
+        {
+          "column_name_en": "acceptedBy",
+          "column_name_ch": "接收者",
+          "column_description": "接收该论文的用户ID。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "论文类型",
+          "column_description": "论文类型标识（如常规、海报等）。"
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "审稿人",
+          "column_description": "分配给该论文的审稿人ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Person",
+      "table_name_ch": "人员",
+      "table_description": "人员基表，存储姓名、邮箱等基本信息。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "人员ID",
+          "column_description": "人员唯一标识。"
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "姓名",
+          "column_description": "人员姓名。"
+        },
+        {
+          "column_name_en": "email",
+          "column_name_ch": "邮箱",
+          "column_description": "人员电子邮箱。"
+        },
+        {
+          "column_name_en": "assignedByReviewer",
+          "column_name_ch": "审稿人分配",
+          "column_description": "由哪个审稿人分配的人员ID。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "人员类型",
+          "column_description": "人员类型标识（作者、审稿人、管理员等）。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Preference",
+      "table_name_ch": "偏好",
+      "table_description": "存储审稿人或用户的偏好设置。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "偏好ID",
+          "column_description": "偏好唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommittee",
+      "table_name_ch": "程序委员会",
+      "table_description": "存储程序委员会信息（如分组名称）。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "委员会ID",
+          "column_description": "程序委员会唯一标识。"
+        },
+        {
+          "column_name_en": "label",
+          "column_name_ch": "委员会标签",
+          "column_description": "委员会的名称或标签。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeChair",
+      "table_name_ch": "程序委员会主席",
+      "table_description": "存储程序委员会主席信息，继承自Person和ProgramCommitteeMember。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "主席ID",
+          "column_description": "主席唯一标识，外键引用Person和ProgramCommitteeMember。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeMember",
+      "table_name_ch": "程序委员会成员",
+      "table_description": "存储程序委员会成员信息，包括最大审稿数量和添加者。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "成员ID",
+          "column_description": "成员唯一标识，外键引用Person。"
+        },
+        {
+          "column_name_en": "maxPapers",
+          "column_name_ch": "最大审稿数",
+          "column_description": "该成员最多可审稿的论文数量。"
+        },
+        {
+          "column_name_en": "addedBy",
+          "column_name_ch": "添加者",
+          "column_description": "添加该成员的用户ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒绝",
+      "table_description": "存储论文被拒原因或标识。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "拒绝ID",
+          "column_description": "拒绝记录唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "学科领域",
+      "table_description": "存储论文的学科领域分类。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "领域ID",
+          "column_description": "学科领域唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户",
+      "table_description": "存储系统用户信息，包括是否接收论文等。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "用户ID",
+          "column_description": "用户唯一标识，外键引用Person。"
+        },
+        {
+          "column_name_en": "acceptPaper",
+          "column_name_ch": "接受论文",
+          "column_description": "用户是否接受论文分配（0/1）。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "用户类型",
+          "column_description": "用户类型标识（管理员、审稿人等）。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "assignReviewer",
+      "table_name_ch": "分配审稿人",
+      "table_description": "记录管理员分配审稿人给论文的操作。",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "执行分配的管理员ID。"
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "审稿人ID",
+          "column_description": "被分配的审稿人ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "co-writePaper",
+      "table_name_ch": "合著论文",
+      "table_description": "记录合著作者与论文的关联关系。",
+      "columns": [
+        {
+          "column_name_en": "Co-author",
+          "column_name_ch": "合著作者ID",
+          "column_description": "合著作者ID。"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "合著论文ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "detailsEnteredBy",
+      "table_name_ch": "详情录入",
+      "table_description": "记录会议详情由哪个管理员录入。",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "被录入详情的会议ID。"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "录入详情的管理员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "enableVirtualMeeting",
+      "table_name_ch": "启用虚拟会议",
+      "table_description": "记录管理员为会议启用虚拟会议功能。",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "启用虚拟会议的管理员ID。"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "启用虚拟会议的会议ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "endReview",
+      "table_name_ch": "结束审稿",
+      "table_description": "记录程序委员会主席结束审稿的操作。",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommitteeChair",
+          "column_name_ch": "主席ID",
+          "column_description": "结束审稿的程序委员会主席ID。"
+        },
+        {
+          "column_name_en": "Review",
+          "column_name_ch": "审稿ID",
+          "column_description": "被结束的审稿文档ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "enterReviewCriteria",
+      "table_name_ch": "输入审稿标准",
+      "table_description": "记录管理员为会议输入审稿标准。",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "输入标准的管理员ID。"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "设置审稿标准的会议ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "finalizePaperAssignment",
+      "table_name_ch": "终定论文分配",
+      "table_description": "记录管理员最终确定论文分配的操作。",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "执行终定分配的管理员ID。"
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "分配论文的会议ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "纸质邮寄清单",
+      "table_description": "记录管理员为会议生成纸质邮寄清单。",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "生成清单的会议ID。"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "生成清单的管理员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "有会议成员",
+      "table_description": "记录会议与成员的关联关系。",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "会议ID。"
+        },
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "会议成员ID",
+          "column_description": "会议成员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConflictOfInterest",
+      "table_name_ch": "利益冲突",
+      "table_description": "记录人员与文档之间的利益冲突声明。",
+      "columns": [
+        {
+          "column_name_en": "Person",
+          "column_name_ch": "人员ID",
+          "column_description": "涉及利益冲突的人员ID。"
+        },
+        {
+          "column_name_en": "Document",
+          "column_name_ch": "文档ID",
+          "column_description": "涉及利益冲突的文档ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasProgramCommitteeMember",
+      "table_name_ch": "委员会成员",
+      "table_description": "记录程序委员会与其成员的关联。",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommittee",
+          "column_name_ch": "委员会ID",
+          "column_description": "程序委员会ID。"
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "成员ID",
+          "column_description": "程序委员会成员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasSubjectArea",
+      "table_name_ch": "论文领域",
+      "table_description": "记录论文所属的学科领域。",
+      "columns": [
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "论文ID。"
+        },
+        {
+          "column_name_en": "SubjectArea",
+          "column_name_ch": "领域ID",
+          "column_description": "学科领域ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "markConflictOfInterest",
+      "table_name_ch": "标记利益冲突",
+      "table_description": "记录会议成员标记论文的利益冲突。",
+      "columns": [
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "会议成员ID",
+          "column_description": "标记冲突的会议成员ID。"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "被标记冲突的论文ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "paperAssignmentToolsRunBy",
+      "table_name_ch": "运行分配工具",
+      "table_description": "记录管理员为会议运行论文分配工具。",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "运行工具的会议ID。"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "运行工具的管理员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "reviewerBiddingStartedBy",
+      "table_name_ch": "启动审稿投标",
+      "table_description": "记录管理员为会议启动审稿人投标流程。",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "启动投标的会议ID。"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "启动投标的管理员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "setMaxPapers",
+      "table_name_ch": "设置最大论文数",
+      "table_description": "记录管理员为程序委员会成员设置最大审稿论文数。",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "设置最大数的管理员ID。"
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "成员ID",
+          "column_description": "被设置最大论文数的程序委员会成员ID。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "submitPaper",
+      "table_name_ch": "提交论文",
+      "table_description": "记录作者提交论文的操作。",
+      "columns": [
+        {
+          "column_name_en": "Author",
+          "column_name_ch": "作者ID",
+          "column_description": "提交论文的作者ID。"
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "被提交的论文ID。"
+        }
+      ]
+    }
+  ]
+}
+2026-05-11 15:52:39,156 [INFO] LLM responded (raw_len=15965 chars)
+2026-05-11 15:52:39,156 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 15:52:39,156 [INFO] LLM enrichment merged successfully
+2026-05-11 15:52:39,156 [INFO] Extraction finished
+2026-05-11 15:59:22,783 [INFO] 
+================== START ======================
+2026-05-11 15:59:22,783 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-11 15:59:22,783 [INFO] Found 1 SQL files
+2026-05-11 15:59:22,783 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-11 15:59:22,784 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-11 15:59:22,797 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-11 15:59:22,797 [INFO] Base extraction complete: 30 tables
+2026-05-11 15:59:22,797 [INFO] Starting chunked LLM enrichment: total_tables=30, chunk_size=10
+2026-05-11 15:59:22,797 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-11 15:59:22,931 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 15:59:22,932 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 15:59:22,932 [INFO] Calling LLM to enrich schema...
+2026-05-11 15:59:22,932 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 15:59:40,898 [INFO] LLM response (len=6723 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "table_description": "存储论文作者信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "作者标识",
+          "column_description": "唯一标识作者"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "作者类型",
+          "column_description": "作者类型，默认0"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标",
+      "table_description": "存储审稿人对论文的投标信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "投标标识",
+          "column_description": "唯一标识投标"
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "调整人",
+          "column_description...<truncated>
+2026-05-11 15:59:40,899 [INFO] LLM responded (raw_len=6723 chars)
+2026-05-11 15:59:40,899 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 15:59:40,899 [INFO] LLM enrichment merged successfully
+2026-05-11 15:59:40,899 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 15:59:40,899 [INFO] LLM chunk 1 finished in 18.10s
+2026-05-11 15:59:40,899 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-11 15:59:40,899 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 15:59:40,899 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 15:59:40,899 [INFO] Calling LLM to enrich schema...
+2026-05-11 15:59:40,899 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:00:21,053 [INFO] LLM response (len=4312 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒稿记录",
+      "table_description": "记录拒稿信息的表，包含唯一标识ID",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "拒稿编号",
+          "column_description": "拒稿记录的唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "学科领域",
+      "table_description": "论文所属学科领域，ID为唯一标识",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "领域编号",
+          "column_description": "学科领域的唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户",
+      "table_description": "系统用户，包含接受论文标志和类型",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "...<truncated>
+2026-05-11 16:00:21,054 [INFO] LLM responded (raw_len=4312 chars)
+2026-05-11 16:00:21,054 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:00:21,054 [INFO] LLM enrichment merged successfully
+2026-05-11 16:00:21,054 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:00:21,054 [INFO] LLM chunk 2 finished in 40.15s
+2026-05-11 16:00:21,054 [INFO] LLM chunk 3: tables [20, 30) (10 tables)
+2026-05-11 16:00:21,054 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 16:00:21,054 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 16:00:21,054 [INFO] Calling LLM to enrich schema...
+2026-05-11 16:00:21,054 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:01:04,061 [INFO] LLM response (len=4593 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "硬拷贝邮件处理",
+      "table_description": "记录会议硬拷贝邮件清单由哪个管理员处理",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "关联的会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "处理硬拷贝邮件清单的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "会议成员关系",
+      "table_description": "记录会议与其成员之间的关联关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "关联的会议ID"
+        },
+        {
+          "column_na...<truncated>
+2026-05-11 16:01:04,061 [INFO] LLM responded (raw_len=4593 chars)
+2026-05-11 16:01:04,062 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:01:04,062 [INFO] LLM enrichment merged successfully
+2026-05-11 16:01:04,062 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:01:04,062 [INFO] LLM chunk 3 finished in 43.01s
+2026-05-11 16:01:04,062 [INFO] Chunked LLM enrichment completed in 101.26s
+2026-05-11 16:01:04,062 [INFO] Extraction finished
+2026-05-11 16:05:26,739 [INFO] 
+================== START ======================
+2026-05-11 16:05:26,740 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-11 16:05:26,740 [INFO] Found 1 SQL files
+2026-05-11 16:05:26,740 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-11 16:05:26,741 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-11 16:05:26,764 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-11 16:05:26,764 [INFO] Base extraction complete: 30 tables
+2026-05-11 16:05:26,765 [INFO] Starting chunked LLM enrichment: total_tables=30, chunk_size=10
+2026-05-11 16:05:26,765 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-11 16:05:26,921 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 16:05:26,922 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 16:05:26,922 [INFO] Calling LLM to enrich schema...
+2026-05-11 16:05:26,922 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:06:27,291 [WARNING] LLM call failed (attempt 1/3): HTTPSConnectionPool(host='api.deepseek.com', port=443): Read timed out.
+2026-05-11 16:06:29,292 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:07:25,911 [INFO] LLM response (len=6980 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "table_description": "存储论文作者信息，关联Person和User表。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "作者ID",
+          "column_description": "作者唯一标识，关联Person和User表。"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "作者类型",
+          "column_description": "区分作者子类型的标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标",
+      "table_description": "存储审稿人对论文的投标信息。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "投标ID",
+          "column_description": "投标唯一标识。"
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch":...<truncated>
+2026-05-11 16:07:25,911 [INFO] LLM responded (raw_len=6980 chars)
+2026-05-11 16:07:25,912 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:07:25,912 [INFO] LLM enrichment merged successfully
+2026-05-11 16:07:25,912 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:07:25,912 [INFO] LLM chunk 1 finished in 119.15s
+2026-05-11 16:07:25,912 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-11 16:07:25,912 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 16:07:25,913 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 16:07:25,913 [INFO] Calling LLM to enrich schema...
+2026-05-11 16:07:25,913 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:07:59,996 [INFO] LLM response (len=4362 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒稿记录",
+      "table_description": "存储论文拒稿信息，ID为唯一标识。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "拒稿编号",
+          "column_description": "拒稿记录的唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "学科领域",
+      "table_description": "存储会议学科领域，ID为唯一标识。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "领域编号",
+          "column_description": "学科领域的唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户表",
+      "table_description": "系统用户信息，包括是否接受论文和用户类型。",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_na...<truncated>
+2026-05-11 16:07:59,997 [INFO] LLM responded (raw_len=4362 chars)
+2026-05-11 16:07:59,997 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:07:59,997 [INFO] LLM enrichment merged successfully
+2026-05-11 16:07:59,997 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:07:59,998 [INFO] LLM chunk 2 finished in 34.08s
+2026-05-11 16:07:59,998 [INFO] LLM chunk 3: tables [20, 30) (10 tables)
+2026-05-11 16:07:59,998 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-11 16:07:59,998 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-11 16:07:59,998 [INFO] Calling LLM to enrich schema...
+2026-05-11 16:07:59,998 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-11 16:08:09,938 [INFO] LLM response (len=4559 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "纸质邮件清单",
+      "table_description": "记录管理员为会议生成纸质邮件清单的操作",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "关联的会议ID"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行操作的管理员ID"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "会议成员关系",
+      "table_description": "记录会议与其成员之间的归属关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "关联的会议ID"
+        },
+        {
+          "column_name_en"...<truncated>
+2026-05-11 16:08:09,939 [INFO] LLM responded (raw_len=4559 chars)
+2026-05-11 16:08:09,940 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:08:09,940 [INFO] LLM enrichment merged successfully
+2026-05-11 16:08:09,940 [INFO] Merging LLM enrichment into extracted schema
+2026-05-11 16:08:09,940 [INFO] LLM chunk 3 finished in 9.94s
+2026-05-11 16:08:09,941 [INFO] Chunked LLM enrichment completed in 163.18s
+2026-05-11 16:08:09,941 [INFO] Extraction finished

@@ -3,9 +3,22 @@ import glob
 import json
 import os
 import re
+import logging
+import time
 from dataclasses import dataclass
+import sys
 from typing import Dict, List, Optional, Set, Tuple
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, 
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stderr),
+        logging.FileHandler('extract_schema.log', encoding='utf-8')
+    ]
+)
+logger = logging.getLogger(__name__)
 
 _IDENTIFIER_RE = re.compile(
     r'^(?P<ident>"(?:[^"]|"")*"|[A-Za-z_][A-Za-z0-9_\-]*)'
@@ -175,6 +188,7 @@ def _parse_type(type_and_constraints: str) -> str:
 class ColumnInfo:
     column_name_en: str
     column_name_ch: str
+    column_description: str
     value_type: str
     is_primary_key: bool
     is_foreign_key: bool
@@ -190,7 +204,10 @@ class TableInfo:
 
 
 def parse_sql_schema(sql_text: str) -> List[TableInfo]:
+    logger.info('Parsing SQL schema (len=%d chars)', len(sql_text))
     default_schema = _infer_schema(sql_text)
+
+    ddl_snippets: List[str] = []
 
     table_comment: Dict[Tuple[str, str], str] = {}
     column_comment: Dict[Tuple[str, str, str], str] = {}
@@ -202,6 +219,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
     ):
         schema, name = _parse_qualified_name(m.group('tbl'), default_schema)
         table_comment[(schema, name)] = m.group('txt').replace("''", "'")
+        ddl_snippets.append(m.group(0).strip())
 
     for m in re.finditer(
         r"COMMENT\s+ON\s+COLUMN\s+(?P<tblcol>[^\s]+)\s+IS\s+'(?P<txt>(?:[^']|'')*)'\s*;",
@@ -213,6 +231,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
             left, col = tblcol.rsplit('.', 1)
             schema, tbl = _parse_qualified_name(left, default_schema)
             column_comment[(schema, tbl, _strip_identifier(col))] = m.group('txt').replace("''", "'")
+            ddl_snippets.append(m.group(0).strip())
 
     pk_cols: Dict[Tuple[str, str], Set[str]] = {}
     for m in re.finditer(
@@ -227,6 +246,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
             if c.strip()
         ]
         pk_cols.setdefault((schema, tbl), set()).update(cols)
+        ddl_snippets.append(m.group(0).strip())
 
     fk_cols: Dict[Tuple[str, str], Set[str]] = {}
     for m in re.finditer(
@@ -241,6 +261,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
             if c.strip()
         ]
         fk_cols.setdefault((schema, tbl), set()).update(cols)
+        ddl_snippets.append(m.group(0).strip())
 
     index_cols: Dict[Tuple[str, str], Set[str]] = {}
     for m in re.finditer(
@@ -255,6 +276,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
             if c.strip()
         ]
         index_cols.setdefault((schema, tbl), set()).update(cols)
+        ddl_snippets.append(m.group(0).strip())
 
     tables: List[TableInfo] = []
 
@@ -297,6 +319,8 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
         if semi != -1:
             i = semi + 1
 
+        ddl_snippets.append(f'CREATE TABLE {raw_table_ident} (\n{cols_block}\n);')
+
         col_items = _split_top_level_commas(cols_block)
         columns: List[ColumnInfo] = []
 
@@ -324,6 +348,7 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
                 ColumnInfo(
                     column_name_en=col_name,
                     column_name_ch=cmt,
+                    column_description='',
                     value_type=col_type,
                     is_primary_key=False,
                     is_foreign_key=False,
@@ -349,17 +374,164 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
             )
         )
 
+    # Attach DDL-only context for downstream LLM enrichment
+    parse_sql_schema.ddl_context = '\n\n'.join(ddl_snippets)  # type: ignore[attr-defined]
+    logger.info('Parsed %d tables; collected %d DDL snippets for LLM context', len(tables), len(ddl_snippets))
     return tables
 
 
-def extract_from_directory(input_dir: str, project: str) -> Dict[str, object]:
+def get_last_ddl_context() -> str:
+    return str(getattr(parse_sql_schema, 'ddl_context', ''))
+
+
+def _merge_llm_enrichment(schema: Dict[str, object], enrich: Dict[str, object]) -> None:
+    logger.info('Merging LLM enrichment into extracted schema')
+    tables = schema.get('tables')
+    enrich_tables = enrich.get('tables') if isinstance(enrich, dict) else None
+    if not isinstance(tables, list) or not isinstance(enrich_tables, list):
+        return
+
+    enrich_by_table: Dict[str, Dict[str, object]] = {}
+    for t in enrich_tables:
+        if isinstance(t, dict) and isinstance(t.get('table_name_en'), str):
+            enrich_by_table[t['table_name_en']] = t
+
+    for t in tables:
+        if not isinstance(t, dict):
+            continue
+        ten = t.get('table_name_en')
+        if not isinstance(ten, str):
+            continue
+        et = enrich_by_table.get(ten)
+        if not et:
+            continue
+
+        if isinstance(et.get('table_name_ch'), str):
+            t['table_name_ch'] = et.get('table_name_ch') or ''
+        if isinstance(et.get('table_description'), str):
+            t['table_description'] = et.get('table_description') or ''
+
+        cols = t.get('columns')
+        ecols = et.get('columns')
+        if not isinstance(cols, list) or not isinstance(ecols, list):
+            continue
+
+        ecols_by_name: Dict[str, Dict[str, object]] = {}
+        for c in ecols:
+            if isinstance(c, dict) and isinstance(c.get('column_name_en'), str):
+                ecols_by_name[c['column_name_en']] = c
+
+        for c in cols:
+            if not isinstance(c, dict):
+                continue
+            cen = c.get('column_name_en')
+            if not isinstance(cen, str):
+                continue
+            ec = ecols_by_name.get(cen)
+            if not ec:
+                continue
+            if isinstance(ec.get('column_name_ch'), str):
+                c['column_name_ch'] = ec.get('column_name_ch') or ''
+            if isinstance(ec.get('column_description'), str):
+                c['column_description'] = ec.get('column_description') or ''
+
+
+def enrich_schema_with_llm(
+    *,
+    ddl_sql_text: str,
+    schema: Dict[str, object],
+) -> None:
+    from llm_client.llm_client import LlmClient
+
+    from prompts.prompts_template import SCHEMA_ENRICH_PROMPT
+
+    prompt_template = SCHEMA_ENRICH_PROMPT
+
+    logger.info('Preparing LLM prompt (ddl_sql_text_len=%d chars)', len(ddl_sql_text))
+    llm_input = {
+        'sql': ddl_sql_text,
+        'extracted': schema,
+    }
+    prompt = prompt_template + "\n\n" + json.dumps(llm_input, ensure_ascii=False, indent=2)
+
+    client = LlmClient()
+    logger.info('Calling LLM to enrich schema...')
+    raw = client.chat(prompt)
+    logger.info('LLM responded (raw_len=%d chars)', len(raw))
+    data = json.loads(raw)
+    _merge_llm_enrichment(schema, data)
+    logger.info('LLM enrichment merged successfully')
+
+
+def enrich_schema_with_llm_chunked(
+    *,
+    ddl_sql_text: str,
+    schema: Dict[str, object],
+    chunk_size: int,
+) -> None:
+    tables = schema.get('tables')
+    if not isinstance(tables, list):
+        raise ValueError('schema.tables must be a list')
+
+    chunk_size = int(chunk_size)
+    if chunk_size <= 0:
+        raise ValueError('chunk_size must be > 0')
+
+    total = len(tables)
+    if total == 0:
+        logger.info('No tables found, skipping LLM enrichment')
+        return
+
+    logger.info('Starting chunked LLM enrichment: total_tables=%d, chunk_size=%d', total, chunk_size)
+
+    start_all = time.perf_counter()
+    chunk_index = 0
+    for start in range(0, total, chunk_size):
+        chunk_index += 1
+        end = min(total, start + chunk_size)
+        chunk_tables = tables[start:end]
+
+        sub_schema: Dict[str, object] = {
+            'project': schema.get('project', ''),
+            'tables': chunk_tables,
+        }
+
+        logger.info('LLM chunk %d: tables [%d, %d) (%d tables)', chunk_index, start, end, len(chunk_tables))
+        t0 = time.perf_counter()
+        enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
+        dt = time.perf_counter() - t0
+
+        # Merge based on table_name_en/column_name_en mapping to be safe even if dict objects were copied.
+        _merge_llm_enrichment(schema, {'tables': sub_schema.get('tables')})
+
+        logger.info('LLM chunk %d finished in %.2fs', chunk_index, dt)
+
+    logger.info('Chunked LLM enrichment completed in %.2fs', time.perf_counter() - start_all)
+
+
+def extract_from_directory(
+    input_dir: str,
+    project: str,
+    *,
+    use_llm: bool,
+    llm_chunk_size: int,
+) -> Dict[str, object]:
+    logger.info(f"\n================================= START =================================")
+    logger.info('Extracting schema from directory: %s', input_dir)
     sql_files = sorted(glob.glob(os.path.join(input_dir, '*.sql')))
+    logger.info('Found %d SQL files', len(sql_files))
     all_tables: List[TableInfo] = []
+    ddl_contexts: List[str] = []
 
     for fp in sql_files:
+        logger.info('Reading SQL file: %s', fp)
         with open(fp, 'r', encoding='utf-8', errors='replace') as f:
             sql_text = f.read()
-        all_tables.extend(parse_sql_schema(sql_text))
+        file_tables = parse_sql_schema(sql_text)
+        all_tables.extend(file_tables)
+        ddl_context = get_last_ddl_context()
+        if ddl_context:
+            ddl_contexts.append(ddl_context)
 
     out_tables = []
     for t in all_tables:
@@ -373,6 +545,7 @@ def extract_from_directory(input_dir: str, project: str) -> Dict[str, object]:
                     {
                         'column_name_en': c.column_name_en,
                         'column_name_ch': c.column_name_ch,
+                        'column_description': c.column_description,
                         'value_type': c.value_type,
                         'is_primary_key': bool(c.is_primary_key),
                         'is_foreign_key': bool(c.is_foreign_key),
@@ -382,17 +555,38 @@ def extract_from_directory(input_dir: str, project: str) -> Dict[str, object]:
             }
         )
 
-    return {'project': project, 'tables': out_tables}
+    result: Dict[str, object] = {'project': project, 'tables': out_tables}
+    logger.info('Base extraction complete: %d tables', len(out_tables))
+    if use_llm:
+        try:
+            enrich_schema_with_llm_chunked(
+                ddl_sql_text='\n\n'.join(ddl_contexts),
+                schema=result,
+                chunk_size=int(llm_chunk_size),
+            )
+        except Exception as e:  # noqa: BLE001
+            logger.exception('LLM enrichment failed: %s', e)
+
+    logger.info('Extraction finished')
+
+    return result
 
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument('--input-dir', required=True)
-    p.add_argument('--project', required=True)
-    p.add_argument('--output', default='-')
+    p.add_argument('--input-dir', required=True, help="输入目录，包含dump.sql原始文件")
+    p.add_argument('--project', required=True, help="输出schema.json中的project字段值")
+    p.add_argument('--output', default='.\\output.json', help="输出文件路径，默认为当前目录下的output.json")
+    p.add_argument('--use-llm', action='store_true', help="是否使用LLM进行增强")
+    p.add_argument('--llm-chunk-size', type=int, default=10, help="提交给LLM的DDL块大小（表数量），默认每次10个表")
     args = p.parse_args()
 
-    data = extract_from_directory(args.input_dir, args.project)
+    data = extract_from_directory(
+        args.input_dir,
+        args.project,
+        use_llm=bool(args.use_llm),
+        llm_chunk_size=int(args.llm_chunk_size),
+    )
     payload = json.dumps(data, ensure_ascii=False, indent=2)
 
     if args.output == '-' or args.output.lower() == 'stdout':
