@@ -1545,3 +1545,1425 @@ RuntimeError: LLM call failed after 3 retries: Expecting value: line 1 column 1 
 2026-05-11 16:08:09,940 [INFO] LLM chunk 3 finished in 9.94s
 2026-05-11 16:08:09,941 [INFO] Chunked LLM enrichment completed in 163.18s
 2026-05-11 16:08:09,941 [INFO] Extraction finished
+2026-05-12 10:51:12,533 [INFO] 
+================================= START =================================
+2026-05-12 10:51:12,533 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 10:51:12,534 [INFO] Found 1 SQL files
+2026-05-12 10:51:12,534 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 10:51:12,683 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 10:51:14,952 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 10:51:14,960 [INFO] Base extraction complete: 70 tables
+2026-05-12 10:51:14,960 [INFO] Starting chunked LLM enrichment: total_tables=70, chunk_size=10
+2026-05-12 10:51:14,961 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 10:51:15,862 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 10:51:15,863 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 10:51:15,863 [INFO] Calling LLM to enrich schema...
+2026-05-12 10:51:15,863 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 10:52:00,964 [INFO] LLM response (len=16559 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "apaareagross",
+      "table_name_ch": "APA区域总图",
+      "table_description": "存储APA总区域几何信息，包含地图编号和KML几何数据",
+      "columns": [
+        {
+          "column_name_en": "apamap_no",
+          "column_name_ch": "地图编号",
+          "column_description": "APA区域地图编号"
+        },
+        {
+          "column_name_en": "apaareageometry_kml_wgs84",
+          "column_name_ch": "区域几何KML",
+          "column_description": "APA区域几何的KML格式数据，WGS84坐标"
+        },
+        {
+          "column_name_en": "apaareagross_id",
+          "column_name_ch": "总区域ID",
+          "column_description": "APA总区域的唯一标识符"
+        }
+      ]
+    },
+    {
+      "table_name_en": "apaareanet",
+      "table_name_ch": "APA区块净区域",
+      "table_description": "存储APA每个区块的净区域信息，包含区块代码和标签",
+      "colu...<truncated>
+2026-05-12 10:52:00,965 [INFO] LLM responded (raw_len=16559 chars)
+2026-05-12 10:52:00,966 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:52:00,966 [INFO] LLM enrichment merged successfully
+2026-05-12 10:52:00,966 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:52:00,967 [INFO] LLM chunk 1 finished in 46.01s
+2026-05-12 10:52:00,967 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-12 10:52:00,967 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 10:52:00,968 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 10:52:00,969 [INFO] Calling LLM to enrich schema...
+2026-05-12 10:52:00,969 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 10:52:48,698 [INFO] LLM response (len=20404 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "discovery",
+      "table_name_ch": "发现",
+      "table_description": "存储挪威大陆架油气发现的基本信息",
+      "columns": [
+        {
+          "column_name_en": "dscname",
+          "column_name_ch": "发现名称",
+          "column_description": "发现的名称"
+        },
+        {
+          "column_name_en": "cmplongname",
+          "column_name_ch": "公司全名",
+          "column_description": "相关公司的完整名称"
+        },
+        {
+          "column_name_en": "dsccurrentactivitystatus",
+          "column_name_ch": "当前活动状态",
+          "column_description": "发现的当前活动状态"
+        },
+        {
+          "column_name_en": "dschctype",
+          "column_name_ch": "烃类类型",
+          "column_description": "发现的烃类类型"
+        },
+        {
+          "column_name_en": "wlbname",
+          "column_n...<truncated>
+2026-05-12 10:52:48,699 [INFO] LLM responded (raw_len=20404 chars)
+2026-05-12 10:52:48,700 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:52:48,700 [INFO] LLM enrichment merged successfully
+2026-05-12 10:52:48,701 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:52:48,701 [INFO] LLM chunk 2 finished in 47.73s
+2026-05-12 10:52:48,701 [INFO] LLM chunk 3: tables [20, 30) (10 tables)
+2026-05-12 10:52:48,701 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 10:52:48,702 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 10:52:48,702 [INFO] Calling LLM to enrich schema...
+2026-05-12 10:52:48,703 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 10:53:41,894 [INFO] LLM response (len=18217 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "field_licensee_hst",
+      "table_name_ch": "油田许可证持有人历史",
+      "table_description": "记录油田许可证持有人及其持股的历史信息",
+      "columns": [
+        {
+          "column_name_en": "fldname",
+          "column_name_ch": "油田名称",
+          "column_description": "油田的名称"
+        },
+        {
+          "column_name_en": "fldownername",
+          "column_name_ch": "所有者名称",
+          "column_description": "油田所有者的名称"
+        },
+        {
+          "column_name_en": "fldownerkind",
+          "column_name_ch": "所有者类型",
+          "column_description": "油田所有者的类别"
+        },
+        {
+          "column_name_en": "fldownerfrom",
+          "column_name_ch": "所有权起始日",
+          "column_description": "所有权生效起始日期"
+        },
+        {
+          "column_name_en": "fldownerto",
+  ...<truncated>
+2026-05-12 10:53:41,895 [INFO] LLM responded (raw_len=18217 chars)
+2026-05-12 10:53:41,896 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:53:41,896 [INFO] LLM enrichment merged successfully
+2026-05-12 10:53:41,897 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:53:41,897 [INFO] LLM chunk 3 finished in 53.20s
+2026-05-12 10:53:41,897 [INFO] LLM chunk 4: tables [30, 40) (10 tables)
+2026-05-12 10:53:41,897 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 10:53:41,898 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 10:53:41,898 [INFO] Calling LLM to enrich schema...
+2026-05-12 10:53:41,899 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 10:54:33,457 [INFO] LLM response (len=16364 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "licence_area_poly_hst",
+      "table_name_ch": "许可证区域多边形历史",
+      "table_description": "记录许可证区域多边形变化历史",
+      "columns": [
+        {
+          "column_name_en": "prlname",
+          "column_name_ch": "许可证名称",
+          "column_description": "许可证的名称"
+        },
+        {
+          "column_name_en": "prlareapolydatevalidfrom",
+          "column_name_ch": "多边形有效起始日期",
+          "column_description": "多边形区域有效期的起始日期"
+        },
+        {
+          "column_name_en": "prlareapolydatevalidto",
+          "column_name_ch": "多边形有效结束日期",
+          "column_description": "多边形区域有效期的结束日期"
+        },
+        {
+          "column_name_en": "prlareapolynationcode",
+          "column_name_ch": "国家代码",
+          "column_description": "多边形所属国家代码"
+        },
+       ...<truncated>
+2026-05-12 10:54:33,458 [INFO] LLM responded (raw_len=16364 chars)
+2026-05-12 10:54:33,459 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:54:33,459 [INFO] LLM enrichment merged successfully
+2026-05-12 10:54:33,460 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 10:54:33,460 [INFO] LLM chunk 4 finished in 51.56s
+2026-05-12 10:54:33,460 [INFO] LLM chunk 5: tables [40, 50) (10 tables)
+2026-05-12 10:54:33,460 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 10:54:33,462 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 10:54:33,462 [INFO] Calling LLM to enrich schema...
+2026-05-12 10:54:33,462 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 10:55:54,291 [INFO] LLM response (len=14900 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "pipline",
+      "table_name_ch": "管线信息",
+      "table_description": "管道基本信息，含起止设施、运营商、介质及尺寸。",
+      "columns": [
+        {
+          "column_name_en": "pipnpdidpipe",
+          "column_name_ch": "管道ID",
+          "column_description": "管道唯一标识符"
+        },
+        {
+          "column_name_en": "pipnpdidfromfacility",
+          "column_name_ch": "起始设施ID",
+          "column_description": "管道起点设施的唯一标识"
+        },
+        {
+          "column_name_en": "pipnpdidtofacility",
+          "column_name_ch": "终止设施ID",
+          "column_description": "管道终点设施的唯一标识"
+        },
+        {
+          "column_name_en": "pipnpdidoperator",
+          "column_name_ch": "运营商ID",
+          "column_description": "管道运营公司标识"
+        },
+        {
+          "column_name_en"...<truncated>
+2026-05-12 10:55:54,292 [INFO] LLM responded (raw_len=14900 chars)
+2026-05-12 10:55:54,292 [ERROR] LLM enrichment failed: Unterminated string starting at: line 507 column 11 (char 14899)
+Traceback (most recent call last):
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 562, in extract_from_directory
+    enrich_schema_with_llm_chunked(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ddl_sql_text='\n\n'.join(ddl_contexts),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        schema=result,
+        ^^^^^^^^^^^^^^
+        chunk_size=int(llm_chunk_size),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 501, in enrich_schema_with_llm_chunked
+    enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 461, in enrich_schema_with_llm
+    data = json.loads(raw)
+  File "D:\soft\python\python314\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "D:\soft\python\python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\soft\python\python314\Lib\json\decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Unterminated string starting at: line 507 column 11 (char 14899)
+2026-05-12 10:55:54,322 [INFO] Extraction finished
+2026-05-12 11:38:18,036 [INFO] 
+================================= START =================================
+2026-05-12 11:38:18,036 [INFO] Extracting schema from directory: ..\data\cmt_denormalized
+2026-05-12 11:38:18,036 [INFO] Found 1 SQL files
+2026-05-12 11:38:18,036 [INFO] Reading SQL file: ..\data\cmt_denormalized\dump.sql
+2026-05-12 11:38:18,037 [INFO] Parsing SQL schema (len=344200 chars)
+2026-05-12 11:38:18,050 [INFO] Parsed 30 tables; collected 99 DDL snippets for LLM context
+2026-05-12 11:38:18,050 [INFO] Base extraction complete: 30 tables
+2026-05-12 11:38:18,050 [INFO] Starting chunked LLM enrichment: total_tables=30, chunk_size=10
+2026-05-12 11:38:18,050 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 11:38:18,208 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-12 11:38:18,208 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:38:18,208 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:38:18,208 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:38:40,435 [INFO] LLM response (len=6851 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "table_description": "论文作者信息表",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "作者标识",
+          "column_description": "作者唯一标识，继承自人员"
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "作者类型",
+          "column_description": "作者类型标识（预留扩展）"
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标记录",
+      "column_description": "评审者对论文的投标信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "投标标识",
+          "column_description": "投标记录唯一标识"
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "调整人",
+          "column...<truncated>
+2026-05-12 11:38:40,436 [INFO] LLM responded (raw_len=6851 chars)
+2026-05-12 11:38:40,436 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:38:40,436 [INFO] LLM enrichment merged successfully
+2026-05-12 11:38:40,436 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:38:40,437 [INFO] LLM chunk 1 finished in 22.39s
+2026-05-12 11:38:40,437 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-12 11:38:40,437 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-12 11:38:40,437 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:38:40,437 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:38:40,437 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:38:58,314 [INFO] LLM response (len=4351 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒稿记录",
+      "table_description": "记录论文被拒稿的决定信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "拒稿标识",
+          "column_description": "拒稿记录的唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "学科领域",
+      "table_description": "论文所属的学科主题分类",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "领域标识",
+          "column_description": "学科领域的唯一标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户",
+      "table_description": "系统用户（包括作者、评审人、管理员等）",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "用户标识",
+...<truncated>
+2026-05-12 11:38:58,314 [INFO] LLM responded (raw_len=4351 chars)
+2026-05-12 11:38:58,314 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:38:58,315 [INFO] LLM enrichment merged successfully
+2026-05-12 11:38:58,315 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:38:58,315 [INFO] LLM chunk 2 finished in 17.88s
+2026-05-12 11:38:58,315 [INFO] LLM chunk 3: tables [20, 30) (10 tables)
+2026-05-12 11:38:58,315 [INFO] Preparing LLM prompt (ddl_sql_text_len=12475 chars)
+2026-05-12 11:38:58,315 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:38:58,315 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:38:58,315 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:39:13,790 [INFO] LLM response (len=4552 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "邮寄清单记录",
+      "table_description": "记录会议管理员生成的纸质提交邮寄清单",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识"
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "执行操作的管理员标识"
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "会议成员关系",
+      "table_description": "会议与会议成员的关联关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识"
+        },
+        {
+          "column_name_e...<truncated>
+2026-05-12 11:39:13,791 [INFO] LLM responded (raw_len=4552 chars)
+2026-05-12 11:39:13,791 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:39:13,792 [INFO] LLM enrichment merged successfully
+2026-05-12 11:39:13,792 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:39:13,792 [INFO] LLM chunk 3 finished in 15.48s
+2026-05-12 11:39:13,792 [INFO] Chunked LLM enrichment completed in 55.74s
+2026-05-12 11:39:13,792 [INFO] Extraction finished
+2026-05-12 11:39:59,757 [INFO] 
+================================= START =================================
+2026-05-12 11:39:59,757 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 11:39:59,758 [INFO] Found 1 SQL files
+2026-05-12 11:39:59,758 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 11:39:59,909 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 11:40:01,903 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 11:40:01,910 [INFO] Base extraction complete: 70 tables
+2026-05-12 11:40:01,910 [INFO] Starting chunked LLM enrichment: total_tables=70, chunk_size=10
+2026-05-12 11:40:01,910 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 11:40:02,048 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:40:02,049 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:40:02,049 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:40:02,049 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:41:08,088 [INFO] LLM response (len=16801 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "apaareagross",
+      "table_name_ch": "APA区域总表",
+      "table_description": "存储APA（预定义区域）的总体几何信息，包括KML几何数据。",
+      "columns": [
+        {
+          "column_name_en": "apamap_no",
+          "column_name_ch": "地图编号",
+          "column_description": "APA区域的地图编号。"
+        },
+        {
+          "column_name_en": "apaareageometry_kml_wgs84",
+          "column_name_ch": "几何KML数据",
+          "column_description": "WGS84坐标系下的KML格式几何数据。"
+        },
+        {
+          "column_name_en": "apaareagross_id",
+          "column_name_ch": "主键ID",
+          "column_description": "APA区域总表的唯一标识。"
+        }
+      ]
+    },
+    {
+      "table_name_en": "apaareanet",
+      "table_name_ch": "APA区域净表",
+      "column_description": "存储APA区域按象限、区块和省份划分的净区域信息。",
+      "co...<truncated>
+2026-05-12 11:41:08,089 [INFO] LLM responded (raw_len=16801 chars)
+2026-05-12 11:41:08,089 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:41:08,090 [INFO] LLM enrichment merged successfully
+2026-05-12 11:41:08,090 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:41:08,091 [INFO] LLM chunk 1 finished in 66.18s
+2026-05-12 11:41:08,091 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-12 11:41:08,091 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:41:08,092 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:41:08,092 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:41:08,093 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:42:09,261 [INFO] LLM response (len=20564 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "discovery",
+      "table_name_ch": "发现信息",
+      "table_description": "记录石油和天然气发现的基本信息，包括名称、状态、关联字段等。",
+      "columns": [
+        {
+          "column_name_en": "dscname",
+          "column_name_ch": "发现名称",
+          "column_description": "发现的名称标识。"
+        },
+        {
+          "column_name_en": "cmplongname",
+          "column_name_ch": "公司长名",
+          "column_description": "操作该发现的公司全称。"
+        },
+        {
+          "column_name_en": "dsccurrentactivitystatus",
+          "column_name_ch": "当前活动状态",
+          "column_description": "发现当前的活动状态。"
+        },
+        {
+          "column_name_en": "dschctype",
+          "column_name_ch": "烃类类型",
+          "column_description": "发现的烃类类型，如油、气等。"
+        },
+        {
+          "column_name_en": "...<truncated>
+2026-05-12 11:42:09,262 [INFO] LLM responded (raw_len=20564 chars)
+2026-05-12 11:42:09,262 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:42:09,263 [INFO] LLM enrichment merged successfully
+2026-05-12 11:42:09,263 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:42:09,263 [INFO] LLM chunk 2 finished in 61.17s
+2026-05-12 11:42:09,264 [INFO] LLM chunk 3: tables [20, 30) (10 tables)
+2026-05-12 11:42:09,264 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:42:09,265 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:42:09,265 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:42:09,265 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:42:49,705 [INFO] LLM response (len=18177 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "field_licensee_hst",
+      "table_name_ch": "油田许可证持有者历史",
+      "table_description": "记录油田许可证持有者的历史信息",
+      "columns": [
+        {
+          "column_name_en": "fldname",
+          "column_name_ch": "油田名称",
+          "column_description": "油田的名称"
+        },
+        {
+          "column_name_en": "fldownername",
+          "column_name_ch": "所有者名称",
+          "column_description": "油田所有者的名称"
+        },
+        {
+          "column_name_en": "fldownerkind",
+          "column_name_ch": "所有者类型",
+          "column_description": "油田所有者的类型"
+        },
+        {
+          "column_name_en": "fldownerfrom",
+          "column_name_ch": "所有权起始日期",
+          "column_description": "所有权有效的起始日期"
+        },
+        {
+          "column_name_en": "fldownerto",
+    ...<truncated>
+2026-05-12 11:42:49,706 [INFO] LLM responded (raw_len=18177 chars)
+2026-05-12 11:42:49,707 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:42:49,707 [INFO] LLM enrichment merged successfully
+2026-05-12 11:42:49,707 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:42:49,708 [INFO] LLM chunk 3 finished in 40.44s
+2026-05-12 11:42:49,708 [INFO] LLM chunk 4: tables [30, 40) (10 tables)
+2026-05-12 11:42:49,708 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:42:49,709 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:42:49,710 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:42:49,710 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:43:31,863 [INFO] LLM response (len=16226 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "licence_area_poly_hst",
+      "table_name_ch": "许可区域多边形历史",
+      "table_description": "记录许可证区域多边形历史变更",
+      "columns": [
+        {
+          "column_name_en": "prlname",
+          "column_name_ch": "许可证名称",
+          "column_description": "许可证的名称"
+        },
+        {
+          "column_name_en": "prlareapolydatevalidfrom",
+          "column_name_ch": "多边形有效起始",
+          "column_description": "多边形有效起始日期"
+        },
+        {
+          "column_name_en": "prlareapolydatevalidto",
+          "column_name_ch": "多边形有效截止",
+          "column_description": "多边形有效截止日期"
+        },
+        {
+          "column_name_en": "prlareapolynationcode",
+          "column_name_ch": "国家代码",
+          "column_description": "多边形所在国家代码"
+        },
+        {
+          ...<truncated>
+2026-05-12 11:43:31,865 [INFO] LLM responded (raw_len=16226 chars)
+2026-05-12 11:43:31,865 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:43:31,866 [INFO] LLM enrichment merged successfully
+2026-05-12 11:43:31,866 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:43:31,866 [INFO] LLM chunk 4 finished in 42.16s
+2026-05-12 11:43:31,867 [INFO] LLM chunk 5: tables [40, 50) (10 tables)
+2026-05-12 11:43:31,867 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:43:31,868 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:43:31,868 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:43:31,869 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:44:46,152 [INFO] LLM response (len=17126 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "pipline",
+      "table_name_ch": "管道",
+      "table_description": "石油天然气管道主表，记录管道基本信息",
+      "columns": [
+        {
+          "column_name_en": "pipnpdidpipe",
+          "column_name_ch": "管道编号",
+          "column_description": "管道唯一标识"
+        },
+        {
+          "column_name_en": "pipnpdidfromfacility",
+          "column_name_ch": "起始设施编号",
+          "column_description": "起点设施NPD ID"
+        },
+        {
+          "column_name_en": "pipnpdidtofacility",
+          "column_name_ch": "终点设施编号",
+          "column_description": "终点设施NPD ID"
+        },
+        {
+          "column_name_en": "pipnpdidoperator",
+          "column_name_ch": "运营商编号",
+          "column_description": "运营商公司NPD ID"
+        },
+        {
+          "column_name_en": "pipn...<truncated>
+2026-05-12 11:44:46,153 [INFO] LLM responded (raw_len=17126 chars)
+2026-05-12 11:44:46,153 [WARNING] LLM returned invalid JSON (attempt 1/4): Unterminated string starting at: line 589 column 29 (char 17120)
+2026-05-12 11:44:46,154 [INFO] Calling LLM to enrich schema... (json_attempt 2/4)
+2026-05-12 11:44:46,154 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:46:01,439 [INFO] LLM response (len=19394 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "pipline",
+      "table_name_ch": "管线",
+      "table_description": "管线基本信息表",
+      "columns": [
+        {
+          "column_name_en": "pipnpdidpipe",
+          "column_name_ch": "管线NPD ID",
+          "column_description": "管线唯一标识符"
+        },
+        {
+          "column_name_en": "pipnpdidfromfacility",
+          "column_name_ch": "起点设施NPD ID",
+          "column_description": "管线起始设施的唯一标识"
+        },
+        {
+          "column_name_en": "pipnpdidtofacility",
+          "column_name_ch": "终点设施NPD ID",
+          "column_description": "管线终点设施的唯一标识"
+        },
+        {
+          "column_name_en": "pipnpdidoperator",
+          "column_name_ch": "运营商NPD ID",
+          "column_description": "管线运营公司的唯一标识"
+        },
+        {
+          "column_name_en...<truncated>
+2026-05-12 11:46:01,440 [INFO] LLM responded (raw_len=19394 chars)
+2026-05-12 11:46:01,440 [WARNING] LLM returned invalid JSON (attempt 2/4): Unterminated string starting at: line 664 column 7 (char 19386)
+2026-05-12 11:46:01,441 [INFO] Calling LLM to enrich schema... (json_attempt 3/4)
+2026-05-12 11:46:01,441 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:46:58,391 [INFO] LLM response (len=25471 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "pipline",
+      "table_name_ch": "管道信息",
+      "table_description": "记录石油/天然气管道的基本信息，包括名称、起点终点、运营商等。",
+      "columns": [
+        {
+          "column_name_en": "pipnpdidpipe",
+          "column_name_ch": "管道ID",
+          "column_description": "管道的唯一标识符"
+        },
+        {
+          "column_name_en": "pipnpdidfromfacility",
+          "column_name_ch": "起点设施ID",
+          "column_description": "管道起点设施的ID"
+        },
+        {
+          "column_name_en": "pipnpdidtofacility",
+          "column_name_ch": "终点设施ID",
+          "column_description": "管道终点设施的ID"
+        },
+        {
+          "column_name_en": "pipnpdidoperator",
+          "column_name_ch": "运营商ID",
+          "column_description": "当前管道运营公司的ID"
+        },
+        {
+          "column_...<truncated>
+2026-05-12 11:46:58,391 [INFO] LLM responded (raw_len=25471 chars)
+2026-05-12 11:46:58,392 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:46:58,392 [INFO] LLM enrichment merged successfully
+2026-05-12 11:46:58,392 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:46:58,392 [INFO] LLM chunk 5 finished in 206.53s
+2026-05-12 11:46:58,392 [INFO] LLM chunk 6: tables [50, 60) (10 tables)
+2026-05-12 11:46:58,392 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:46:58,393 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:46:58,393 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:46:58,394 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:47:50,825 [INFO] LLM response (len=17152 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "tuf_operator_hst",
+      "table_name_ch": "TUF运营商历史",
+      "table_description": "记录运输与利用设施(TUF)的运营商变更历史",
+      "columns": [
+        {
+          "column_name_en": "tufname",
+          "column_name_ch": "设施名称",
+          "column_description": "运输与利用设施的名称"
+        },
+        {
+          "column_name_en": "cmplongname",
+          "column_name_ch": "公司全称",
+          "column_description": "运营商公司的全称"
+        },
+        {
+          "column_name_en": "tufoperdatevalidfrom",
+          "column_name_ch": "运营商生效起始日期",
+          "column_description": "运营商关系的有效起始日期"
+        },
+        {
+          "column_name_en": "tufoperdatevalidto",
+          "column_name_ch": "运营商生效截止日期",
+          "column_description": "运营商关系的有效截止日期"
+        },
+        {
+          "col...<truncated>
+2026-05-12 11:47:50,826 [INFO] LLM responded (raw_len=17152 chars)
+2026-05-12 11:47:50,827 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:47:50,827 [INFO] LLM enrichment merged successfully
+2026-05-12 11:47:50,828 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 11:47:50,828 [INFO] LLM chunk 6 finished in 52.44s
+2026-05-12 11:47:50,829 [INFO] LLM chunk 7: tables [60, 70) (10 tables)
+2026-05-12 11:47:50,829 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 11:47:50,830 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 11:47:50,830 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 11:47:50,831 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:49:08,002 [INFO] LLM response (len=24169 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wellbore_development_all",
+      "table_name_ch": "开发井全部信息",
+      "table_description": "包含挪威大陆架所有开发井的详细数据，包括井身、作业者、许可证、坐标及生产信息。",
+      "columns": [
+        {
+          "column_name_en": "wlbwellborename",
+          "column_name_ch": "井筒名称",
+          "column_description": "井筒的唯一名称标识"
+        },
+        {
+          "column_name_en": "wlbwell",
+          "column_name_ch": "井名",
+          "column_description": "井的简称"
+        },
+        {
+          "column_name_en": "wlbdrillingoperator",
+          "column_name_ch": "钻井运营商",
+          "column_description": "负责钻井作业的公司名称"
+        },
+        {
+          "column_name_en": "wlbdrillingoperatorgroup",
+          "column_name_ch": "运营商组",
+          "column_description": "钻井运营商所属集团"
+        },
+        {
+ ...<truncated>
+2026-05-12 11:49:08,003 [INFO] LLM responded (raw_len=24169 chars)
+2026-05-12 11:49:08,003 [WARNING] LLM returned invalid JSON (attempt 1/4): Expecting value: line 825 column 28 (char 24169)
+2026-05-12 11:49:08,004 [INFO] Calling LLM to enrich schema... (json_attempt 2/4)
+2026-05-12 11:49:08,004 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:50:18,289 [INFO] LLM response (len=24363 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wellbore_development_all",
+      "table_name_ch": "开发井全表",
+      "table_description": "包含所有开发井的详细信息",
+      "columns": [
+        {"column_name_en": "wlbwellborename", "column_name_ch": "井筒名称", "column_description": "井筒的唯一名称标识"},
+        {"column_name_en": "wlbwell", "column_name_ch": "井名", "column_description": "井的全名"},
+        {"column_name_en": "wlbdrillingoperator", "column_name_ch": "钻井运营商", "column_description": "负责钻井作业的公司"},
+        {"column_name_en": "wlbdrillingoperatorgroup", "column_name_ch": "钻井运营商分组", "column_description": "钻井运营商所属分组"},
+        {"column_name_en": "wlbproductionlicence", "column_name_ch": "生产许可证", "column_description": "与井筒相关的生产许可证"},
+        {"column_name_en": "wlbpurposeplanned", "column_name_ch": "计划目的", "column_d...<truncated>
+2026-05-12 11:50:18,290 [INFO] LLM responded (raw_len=24363 chars)
+2026-05-12 11:50:18,291 [WARNING] LLM returned invalid JSON (attempt 2/4): Unterminated string starting at: line 277 column 79 (char 24344)
+2026-05-12 11:50:18,291 [INFO] Calling LLM to enrich schema... (json_attempt 3/4)
+2026-05-12 11:50:18,291 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:51:32,009 [INFO] LLM response (len=27552 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wellbore_development_all",
+      "table_name_ch": "开发井全信息",
+      "table_description": "开发井所有详细信息，包括位置、作业者、产量等",
+      "columns": [
+        {
+          "column_name_en": "wlbwellborename",
+          "column_name_ch": "井筒名称",
+          "column_description": "井筒的名称标识"
+        },
+        {
+          "column_name_en": "wlbwell",
+          "column_name_ch": "井名",
+          "column_description": "所属井的名称"
+        },
+        {
+          "column_name_en": "wlbdrillingoperator",
+          "column_name_ch": "钻井作业者",
+          "column_description": "钻井作业的公司名称"
+        },
+        {
+          "column_name_en": "wlbdrillingoperatorgroup",
+          "column_name_ch": "作业者分组",
+          "column_description": "钻井作业者所属分组"
+        },
+        {
+          "column_na...<truncated>
+2026-05-12 11:51:32,010 [INFO] LLM responded (raw_len=27552 chars)
+2026-05-12 11:51:32,011 [WARNING] LLM returned invalid JSON (attempt 3/4): Unterminated string starting at: line 933 column 29 (char 27547)
+2026-05-12 11:51:32,011 [INFO] Calling LLM to enrich schema... (json_attempt 4/4)
+2026-05-12 11:51:32,012 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 11:52:44,177 [INFO] LLM response (len=24456 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wellbore_development_all",
+      "table_name_ch": "开发井全量",
+      "table_description": "所有开发井的完整信息，包括位置、操作、生产等",
+      "columns": [
+        {"column_name_en": "wlbwellborename", "column_name_ch": "井名", "column_description": "井眼名称"},
+        {"column_name_en": "wlbwell", "column_name_ch": "井号", "column_description": "井的标识符"},
+        {"column_name_en": "wlbdrillingoperator", "column_name_ch": "钻井作业者", "column_description": "钻井操作公司名称"},
+        {"column_name_en": "wlbdrillingoperatorgroup", "column_name_ch": "作业者分组", "column_description": "钻井作业者所属集团"},
+        {"column_name_en": "wlbproductionlicence", "column_name_ch": "生产许可", "column_description": "生产许可证名称"},
+        {"column_name_en": "wlbpurposeplanned", "column_name_ch": "设计用途", "column_descr...<truncated>
+2026-05-12 11:52:44,177 [INFO] LLM responded (raw_len=24456 chars)
+2026-05-12 11:52:44,178 [WARNING] LLM returned invalid JSON (attempt 4/4): Unterminated string starting at: line 279 column 44 (char 24444)
+2026-05-12 11:52:44,178 [ERROR] LLM enrichment failed: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 279 column 44 (char 24444)
+Traceback (most recent call last):
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 584, in extract_from_directory
+    enrich_schema_with_llm_chunked(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ddl_sql_text='\n\n'.join(ddl_contexts),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        schema=result,
+        ^^^^^^^^^^^^^^
+        chunk_size=int(llm_chunk_size),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 523, in enrich_schema_with_llm_chunked
+    enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 485, in enrich_schema_with_llm
+    raise RuntimeError(f'LLM returned invalid JSON after {attempt_total} attempts: {last_error}')
+RuntimeError: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 279 column 44 (char 24444)
+2026-05-12 11:52:44,189 [INFO] Extraction finished
+2026-05-12 14:36:21,185 [INFO] 
+================================= START =================================
+2026-05-12 14:36:21,186 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 14:36:21,186 [INFO] Found 1 SQL files
+2026-05-12 14:36:21,186 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 14:36:21,300 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 14:36:23,255 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 14:36:23,260 [INFO] Base extraction complete: 70 tables
+2026-05-12 14:36:23,260 [INFO] Starting chunked LLM enrichment: total_tables=70, chunk_size=10
+2026-05-12 14:36:23,260 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 14:36:23,476 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 14:36:23,478 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 14:36:23,478 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 14:36:23,478 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:37:32,294 [INFO] 
+================================= START =================================
+2026-05-12 14:37:32,294 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 14:37:32,295 [INFO] Found 1 SQL files
+2026-05-12 14:37:32,295 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 14:37:32,393 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 14:37:34,399 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 14:37:34,406 [INFO] Base extraction complete: 70 tables
+2026-05-12 14:37:34,411 [INFO] Resume mode enabled: merged 70 tables from existing output
+2026-05-12 14:37:34,411 [INFO] Resume mode: 21/70 tables need LLM enrichment
+2026-05-12 14:37:34,411 [INFO] Starting chunked LLM enrichment: total_tables=21, chunk_size=10
+2026-05-12 14:37:34,412 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 14:37:34,561 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 14:37:34,562 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 14:37:34,562 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 14:37:34,562 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:38:40,890 [INFO] LLM response (len=17639 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "apaareanet",
+      "table_name_ch": "APA区域净表",
+      "table_description": "存储APA预定义区域的净区块信息。",
+      "columns": [
+        {
+          "column_name_en": "blkid",
+          "column_name_ch": "区块ID",
+          "column_description": "区块的唯一标识。"
+        },
+        {
+          "column_name_en": "blklabel",
+          "column_name_ch": "区块标签",
+          "column_description": "区块的标签名称。"
+        },
+        {
+          "column_name_en": "qdrname",
+          "column_name_ch": "象限名称",
+          "column_description": "所属象限的名称。"
+        },
+        {
+          "column_name_en": "blkname",
+          "column_name_ch": "区块名称",
+          "column_description": "区块的名称。"
+        },
+        {
+          "column_name_en": "prvname",
+          "column_name_ch": "省份名称",
+  ...<truncated>
+2026-05-12 14:38:40,891 [INFO] LLM responded (raw_len=17639 chars)
+2026-05-12 14:38:40,891 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 14:38:40,892 [INFO] LLM enrichment merged successfully
+2026-05-12 14:38:40,892 [INFO] LLM chunk 1 finished in 66.48s
+2026-05-12 14:38:40,892 [INFO] LLM chunk 2: tables [10, 20) (10 tables)
+2026-05-12 14:38:40,892 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 14:38:40,893 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 14:38:40,893 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 14:38:40,893 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:40:08,101 [INFO] LLM response (len=28335 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+        ...<truncated>
+2026-05-12 14:40:08,102 [INFO] LLM responded (raw_len=28335 chars)
+2026-05-12 14:40:08,102 [WARNING] LLM returned invalid JSON (attempt 1/4): Unterminated string starting at: line 966 column 33 (char 28326)
+2026-05-12 14:40:08,102 [INFO] Calling LLM to enrich schema... (json_attempt 2/4)
+2026-05-12 14:40:08,103 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:41:33,270 [INFO] LLM response (len=26602 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+        ...<truncated>
+2026-05-12 14:41:33,271 [INFO] LLM responded (raw_len=26602 chars)
+2026-05-12 14:41:33,272 [WARNING] LLM returned invalid JSON (attempt 2/4): Expecting ',' delimiter: line 914 column 42 (char 26602)
+2026-05-12 14:41:33,272 [INFO] Calling LLM to enrich schema... (json_attempt 3/4)
+2026-05-12 14:41:33,272 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:42:57,340 [INFO] LLM response (len=27743 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层",
+      "table_description": "记录钻井岩心与地层岩性关联信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称标识"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+      ...<truncated>
+2026-05-12 14:42:57,341 [INFO] LLM responded (raw_len=27743 chars)
+2026-05-12 14:42:57,341 [WARNING] LLM returned invalid JSON (attempt 3/4): Expecting property name enclosed in double quotes: line 949 column 39 (char 27743)
+2026-05-12 14:42:57,341 [INFO] Calling LLM to enrich schema... (json_attempt 4/4)
+2026-05-12 14:42:57,342 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 14:44:20,870 [INFO] LLM response (len=27489 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+        ...<truncated>
+2026-05-12 14:44:20,871 [INFO] LLM responded (raw_len=27489 chars)
+2026-05-12 14:44:20,871 [WARNING] LLM returned invalid JSON (attempt 4/4): Unterminated string starting at: line 941 column 33 (char 27481)
+2026-05-12 14:44:20,872 [ERROR] LLM enrichment failed: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 941 column 33 (char 27481)
+Traceback (most recent call last):
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 678, in extract_from_directory
+    enrich_schema_with_llm_chunked(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ddl_sql_text='\n\n'.join(ddl_contexts),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        target_table_names=target_table_names,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 594, in enrich_schema_with_llm_chunked
+    enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 550, in enrich_schema_with_llm
+    raise RuntimeError(f'LLM returned invalid JSON after {attempt_total} attempts: {last_error}')
+RuntimeError: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 941 column 33 (char 27481)
+2026-05-12 14:44:20,874 [INFO] Extraction finished
+2026-05-12 15:02:44,030 [INFO] 
+================================= START =================================
+2026-05-12 15:02:44,030 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 15:02:44,030 [INFO] Found 1 SQL files
+2026-05-12 15:02:44,030 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 15:02:44,172 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 15:02:46,410 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 15:02:46,418 [INFO] Base extraction complete: 70 tables
+2026-05-12 15:02:46,423 [INFO] Resume mode enabled: merged 70 tables from existing output
+2026-05-12 15:02:46,423 [INFO] Resume mode: 11/70 tables need LLM enrichment
+2026-05-12 15:02:46,423 [INFO] Starting chunked LLM enrichment: total_tables=11, chunk_size=10
+2026-05-12 15:02:46,423 [INFO] LLM chunk 1: tables [0, 10) (10 tables)
+2026-05-12 15:02:47,242 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 15:02:47,244 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 15:02:47,244 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 15:02:47,244 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:04:10,324 [INFO] LLM response (len=29319 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+        ...<truncated>
+2026-05-12 15:04:10,325 [INFO] LLM responded (raw_len=29319 chars)
+2026-05-12 15:04:10,326 [WARNING] LLM returned invalid JSON (attempt 1/4): Unterminated string starting at: line 1008 column 33 (char 29317)
+2026-05-12 15:04:10,326 [INFO] Calling LLM to enrich schema... (json_attempt 2/4)
+2026-05-12 15:04:10,326 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:05:35,031 [INFO] LLM response (len=25769 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "钻井岩心地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+          "...<truncated>
+2026-05-12 15:05:35,031 [INFO] LLM responded (raw_len=25769 chars)
+2026-05-12 15:05:35,032 [WARNING] LLM returned invalid JSON (attempt 2/4): Expecting value: line 884 column 32 (char 25769)
+2026-05-12 15:05:35,033 [INFO] Calling LLM to enrich schema... (json_attempt 3/4)
+2026-05-12 15:05:35,033 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:07:01,023 [INFO] LLM response (len=27435 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息，包括长度和地层单元",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate"...<truncated>
+2026-05-12 15:07:01,024 [INFO] LLM responded (raw_len=27435 chars)
+2026-05-12 15:07:01,025 [WARNING] LLM returned invalid JSON (attempt 3/4): Expecting ',' delimiter: line 926 column 8 (char 27435)
+2026-05-12 15:07:01,025 [INFO] Calling LLM to enrich schema... (json_attempt 4/4)
+2026-05-12 15:07:01,025 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:08:28,401 [INFO] LLM response (len=26913 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息，包括岩心长度、地层名称等",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletionda...<truncated>
+2026-05-12 15:08:28,402 [INFO] LLM responded (raw_len=26913 chars)
+2026-05-12 15:08:28,403 [WARNING] LLM returned invalid JSON (attempt 4/4): Unterminated string starting at: line 910 column 33 (char 26906)
+2026-05-12 15:08:28,403 [ERROR] LLM enrichment failed: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 910 column 33 (char 26906)
+Traceback (most recent call last):
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 678, in extract_from_directory
+    enrich_schema_with_llm_chunked(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ddl_sql_text='\n\n'.join(ddl_contexts),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        target_table_names=target_table_names,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 594, in enrich_schema_with_llm_chunked
+    enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\work\github\rodi\meta_extract\extract_schema.py", line 550, in enrich_schema_with_llm
+    raise RuntimeError(f'LLM returned invalid JSON after {attempt_total} attempts: {last_error}')
+RuntimeError: LLM returned invalid JSON after 4 attempts: Unterminated string starting at: line 910 column 33 (char 26906)
+2026-05-12 15:08:28,405 [INFO] Extraction finished
+2026-05-12 15:09:03,828 [INFO] 
+================================= START =================================
+2026-05-12 15:09:03,828 [INFO] Extracting schema from directory: ..\data\npd_atomic_tests
+2026-05-12 15:09:03,829 [INFO] Found 1 SQL files
+2026-05-12 15:09:03,829 [INFO] Reading SQL file: ..\data\npd_atomic_tests\dump.sql
+2026-05-12 15:09:03,975 [INFO] Parsing SQL schema (len=33633842 chars)
+2026-05-12 15:09:06,046 [INFO] Parsed 70 tables; collected 218 DDL snippets for LLM context
+2026-05-12 15:09:06,053 [INFO] Base extraction complete: 70 tables
+2026-05-12 15:09:06,058 [INFO] Resume mode enabled: merged 70 tables from existing output
+2026-05-12 15:09:06,059 [INFO] Resume mode: 11/70 tables need LLM enrichment
+2026-05-12 15:09:06,059 [INFO] Starting chunked LLM enrichment: total_tables=11, chunk_size=5
+2026-05-12 15:09:06,059 [INFO] LLM chunk 1: tables [0, 5) (5 tables)
+2026-05-12 15:09:06,210 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 15:09:06,211 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 15:09:06,211 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 15:09:06,212 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:10:37,052 [INFO] LLM response (len=25191 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息，包括岩心长度、地层名称和级别等",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletio...<truncated>
+2026-05-12 15:10:37,053 [INFO] LLM responded (raw_len=25191 chars)
+2026-05-12 15:10:37,053 [WARNING] LLM returned invalid JSON (attempt 1/4): Unterminated string starting at: line 858 column 29 (char 25183)
+2026-05-12 15:10:37,054 [INFO] Calling LLM to enrich schema... (json_attempt 2/4)
+2026-05-12 15:10:37,054 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:12:03,399 [INFO] LLM response (len=26792 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcompletiondate",
+        ...<truncated>
+2026-05-12 15:12:03,400 [INFO] LLM responded (raw_len=26792 chars)
+2026-05-12 15:12:03,400 [WARNING] LLM returned invalid JSON (attempt 2/4): Unterminated string starting at: line 907 column 29 (char 26791)
+2026-05-12 15:12:03,401 [INFO] Calling LLM to enrich schema... (json_attempt 3/4)
+2026-05-12 15:12:03,401 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:13:23,482 [INFO] LLM response (len=27350 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "strat_litho_wellbore_core",
+      "table_name_ch": "钻井岩心地层岩性",
+      "table_description": "记录钻井岩心的地层岩性信息，包括长度、名称、级别和关联钻井ID",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "钻井名称",
+          "column_description": "钻井的名称"
+        },
+        {
+          "column_name_en": "lsucorelenght",
+          "column_name_ch": "岩心长度",
+          "column_description": "岩心的总长度"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "地层或岩性单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",
+          "column_name_ch": "地层级别",
+          "column_description": "地层单元的分类级别"
+        },
+        {
+          "column_name_en": "wlbcomplet...<truncated>
+2026-05-12 15:13:23,483 [INFO] LLM responded (raw_len=27350 chars)
+2026-05-12 15:13:23,483 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 15:13:23,484 [INFO] LLM enrichment merged successfully
+2026-05-12 15:13:23,484 [INFO] LLM chunk 1 finished in 257.43s
+2026-05-12 15:13:23,484 [INFO] LLM chunk 2: tables [5, 10) (5 tables)
+2026-05-12 15:13:23,484 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 15:13:23,485 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 15:13:23,485 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 15:13:23,485 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:14:01,028 [INFO] LLM response (len=12255 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wellbore_formation_top",
+      "table_name_ch": "井筒地层顶界",
+      "table_description": "记录井筒中地层顶界深度及岩性地层单元信息",
+      "columns": [
+        {
+          "column_name_en": "wlbname",
+          "column_name_ch": "井筒名称",
+          "column_description": "井筒的名称标识"
+        },
+        {
+          "column_name_en": "lsutopdepth",
+          "column_name_ch": "地层顶深",
+          "column_description": "岩性地层单元顶界深度（米）"
+        },
+        {
+          "column_name_en": "lsubottomdepth",
+          "column_name_ch": "地层底深",
+          "column_description": "岩性地层单元底界深度（米）"
+        },
+        {
+          "column_name_en": "lsuname",
+          "column_name_ch": "地层名称",
+          "column_description": "岩性地层单元的名称"
+        },
+        {
+          "column_name_en": "lsulevel",...<truncated>
+2026-05-12 15:14:01,028 [INFO] LLM responded (raw_len=12255 chars)
+2026-05-12 15:14:01,028 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 15:14:01,029 [INFO] LLM enrichment merged successfully
+2026-05-12 15:14:01,029 [INFO] LLM chunk 2 finished in 37.54s
+2026-05-12 15:14:01,029 [INFO] LLM chunk 3: tables [10, 11) (1 tables)
+2026-05-12 15:14:01,029 [INFO] Preparing LLM prompt (ddl_sql_text_len=68662 chars)
+2026-05-12 15:14:01,030 [WARNING] SSL certificate verification is DISABLED. Use only in trusted networks.
+2026-05-12 15:14:01,030 [INFO] Calling LLM to enrich schema... (json_attempt 1/4)
+2026-05-12 15:14:01,030 [INFO] Sending non-streaming request to https://api.deepseek.com/v1/chat/completions, model=deepseek-v4-flash, temperature=0.7, max_tokens=8192, extra_body={}
+2026-05-12 15:14:17,883 [INFO] LLM response (len=3123 chars, preview_len=814):
+{
+  "tables": [
+    {
+      "table_name_en": "wlbpoint",
+      "table_name_ch": "井筒点信息",
+      "table_description": "存储井筒地理位置点的摘要信息",
+      "columns": [
+        {
+          "column_name_en": "wlbnpdidwellbore",
+          "column_name_ch": "NPD井筒ID",
+          "column_description": "NPD分配的井筒唯一标识符"
+        },
+        {
+          "column_name_en": "wlbwellname",
+          "column_name_ch": "井名",
+          "column_description": "井的名称"
+        },
+        {
+          "column_name_en": "wlbwellborename",
+          "column_name_ch": "井筒名",
+          "column_description": "井筒的具体名称"
+        },
+        {
+          "column_name_en": "wlbfield",
+          "column_name_ch": "油田",
+          "column_description": "井筒所属的油田名称"
+        },
+        {
+          "column_name_en": "wlbproductionlicence",
+        ...<truncated>
+2026-05-12 15:14:17,883 [INFO] LLM responded (raw_len=3123 chars)
+2026-05-12 15:14:17,884 [INFO] Merging LLM enrichment into extracted schema
+2026-05-12 15:14:17,884 [INFO] LLM enrichment merged successfully
+2026-05-12 15:14:17,884 [INFO] LLM chunk 3 finished in 16.85s
+2026-05-12 15:14:17,884 [INFO] Chunked LLM enrichment completed in 311.83s
+2026-05-12 15:14:17,884 [INFO] Extraction finished

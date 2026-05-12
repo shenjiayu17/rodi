@@ -436,12 +436,78 @@ def _merge_llm_enrichment(schema: Dict[str, object], enrich: Dict[str, object]) 
                 c['column_description'] = ec.get('column_description') or ''
 
 
+def _table_needs_llm_enrichment(table: Dict[str, object]) -> bool:
+    table_name_ch = table.get('table_name_ch')
+    table_description = table.get('table_description')
+    return not (isinstance(table_name_ch, str) and table_name_ch.strip()) or not (
+        isinstance(table_description, str) and table_description.strip()
+    )
+
+
+def _load_existing_output(output_path: str, project: str) -> Optional[Dict[str, object]]:
+    if not output_path or output_path in {'-', 'stdout'}:
+        return None
+    if not os.path.exists(output_path):
+        logger.info('Resume requested but output file does not exist: %s', output_path)
+        return None
+
+    try:
+        with open(output_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except Exception as e:  # noqa: BLE001
+        logger.warning('Failed to load existing output for resume (%s): %s', output_path, e)
+        return None
+
+    if not isinstance(data, dict):
+        logger.warning('Existing output is not a JSON object, ignoring resume file: %s', output_path)
+        return None
+
+    existing_project = data.get('project')
+    if isinstance(existing_project, str) and existing_project and existing_project != project:
+        logger.warning(
+            'Existing output project mismatch (existing=%s, current=%s), ignoring resume file: %s',
+            existing_project,
+            project,
+            output_path,
+        )
+        return None
+
+    return data
+
+
+def _merge_existing_output_into_result(result: Dict[str, object], existing: Dict[str, object]) -> int:
+    result_tables = result.get('tables')
+    existing_tables = existing.get('tables')
+    if not isinstance(result_tables, list) or not isinstance(existing_tables, list):
+        return 0
+
+    existing_by_name: Dict[str, Dict[str, object]] = {}
+    for table in existing_tables:
+        if isinstance(table, dict) and isinstance(table.get('table_name_en'), str):
+            existing_by_name[table['table_name_en']] = table
+
+    merged = 0
+    for table in result_tables:
+        if not isinstance(table, dict):
+            continue
+        table_name_en = table.get('table_name_en')
+        if not isinstance(table_name_en, str):
+            continue
+        existing_table = existing_by_name.get(table_name_en)
+        if existing_table:
+            table.update(existing_table)
+            merged += 1
+
+    return merged
+
+
 def enrich_schema_with_llm(
     *,
     ddl_sql_text: str,
     schema: Dict[str, object],
 ) -> None:
     from llm_client.llm_client import LlmClient
+    from llm_client import config as llm_config
 
     from prompts.prompts_template import SCHEMA_ENRICH_PROMPT
 
@@ -455,12 +521,33 @@ def enrich_schema_with_llm(
     prompt = prompt_template + "\n\n" + json.dumps(llm_input, ensure_ascii=False, indent=2)
 
     client = LlmClient()
-    logger.info('Calling LLM to enrich schema...')
-    raw = client.chat(prompt)
-    logger.info('LLM responded (raw_len=%d chars)', len(raw))
-    data = json.loads(raw)
-    _merge_llm_enrichment(schema, data)
-    logger.info('LLM enrichment merged successfully')
+    json_retries = int(getattr(llm_config, 'LLM_JSON_RETRIES', 0))
+    attempt_total = json_retries + 1
+
+    last_error: Optional[BaseException] = None
+    for attempt in range(1, attempt_total + 1):
+        try:
+            logger.info('Calling LLM to enrich schema... (json_attempt %d/%d)', attempt, attempt_total)
+            raw = client.chat(prompt)
+            logger.info('LLM responded (raw_len=%d chars)', len(raw))
+            data = json.loads(raw)
+            _merge_llm_enrichment(schema, data)
+            logger.info('LLM enrichment merged successfully')
+            return
+        except json.JSONDecodeError as e:
+            last_error = e
+            logger.warning(
+                'LLM returned invalid JSON (attempt %d/%d): %s',
+                attempt,
+                attempt_total,
+                e,
+            )
+            if attempt < attempt_total:
+                continue
+        except Exception:
+            raise
+
+    raise RuntimeError(f'LLM returned invalid JSON after {attempt_total} attempts: {last_error}')
 
 
 def enrich_schema_with_llm_chunked(
@@ -468,6 +555,7 @@ def enrich_schema_with_llm_chunked(
     ddl_sql_text: str,
     schema: Dict[str, object],
     chunk_size: int,
+    target_table_names: Optional[Set[str]] = None,
 ) -> None:
     tables = schema.get('tables')
     if not isinstance(tables, list):
@@ -477,7 +565,12 @@ def enrich_schema_with_llm_chunked(
     if chunk_size <= 0:
         raise ValueError('chunk_size must be > 0')
 
-    total = len(tables)
+    if target_table_names:
+        target_tables = [t for t in tables if isinstance(t, dict) and t.get('table_name_en') in target_table_names]
+    else:
+        target_tables = [t for t in tables if isinstance(t, dict)]
+
+    total = len(target_tables)
     if total == 0:
         logger.info('No tables found, skipping LLM enrichment')
         return
@@ -489,20 +582,17 @@ def enrich_schema_with_llm_chunked(
     for start in range(0, total, chunk_size):
         chunk_index += 1
         end = min(total, start + chunk_size)
-        chunk_tables = tables[start:end]
+        chunk_tables = target_tables[start:end]
 
         sub_schema: Dict[str, object] = {
             'project': schema.get('project', ''),
             'tables': chunk_tables,
         }
 
-        logger.info('LLM chunk %d: tables [%d, %d) (%d tables)', chunk_index, start, end, len(chunk_tables))
+        logger.info('LLM chunk %d: tables [%d, %d) (%d tables) %s', chunk_index, start, end, len(chunk_tables), chunk_tables)
         t0 = time.perf_counter()
         enrich_schema_with_llm(ddl_sql_text=ddl_sql_text, schema=sub_schema)
         dt = time.perf_counter() - t0
-
-        # Merge based on table_name_en/column_name_en mapping to be safe even if dict objects were copied.
-        _merge_llm_enrichment(schema, {'tables': sub_schema.get('tables')})
 
         logger.info('LLM chunk %d finished in %.2fs', chunk_index, dt)
 
@@ -515,6 +605,8 @@ def extract_from_directory(
     *,
     use_llm: bool,
     llm_chunk_size: int,
+    resume: bool,
+    output_path: str,
 ) -> Dict[str, object]:
     logger.info(f"\n================================= START =================================")
     logger.info('Extracting schema from directory: %s', input_dir)
@@ -557,12 +649,38 @@ def extract_from_directory(
 
     result: Dict[str, object] = {'project': project, 'tables': out_tables}
     logger.info('Base extraction complete: %d tables', len(out_tables))
+
+    existing_output = _load_existing_output(output_path, project) if resume else None
+    if existing_output:
+        merged_count = _merge_existing_output_into_result(result, existing_output)
+        logger.info('Resume mode enabled: merged %d tables from existing output', merged_count)
+
     if use_llm:
         try:
+            target_table_names: Optional[Set[str]] = None
+            if existing_output:
+                tables_to_enrich = [t for t in result['tables'] if isinstance(t, dict) and _table_needs_llm_enrichment(t)]
+                target_table_names = {
+                    t['table_name_en']
+                    for t in tables_to_enrich
+                    if isinstance(t.get('table_name_en'), str)
+                }
+                logger.info(
+                    'Resume mode: %d/%d tables (%s) need LLM enrichment',
+                    len(target_table_names),
+                    len(result['tables']) if isinstance(result.get('tables'), list) else 0,
+                    target_table_names,
+                )
+                if not target_table_names:
+                    logger.info('Resume mode: no tables require LLM enrichment, skipping LLM step')
+                    logger.info('Extraction finished')
+                    return result
+
             enrich_schema_with_llm_chunked(
                 ddl_sql_text='\n\n'.join(ddl_contexts),
                 schema=result,
                 chunk_size=int(llm_chunk_size),
+                target_table_names=target_table_names,
             )
         except Exception as e:  # noqa: BLE001
             logger.exception('LLM enrichment failed: %s', e)
@@ -579,6 +697,7 @@ def main() -> None:
     p.add_argument('--output', default='.\\output.json', help="输出文件路径，默认为当前目录下的output.json")
     p.add_argument('--use-llm', action='store_true', help="是否使用LLM进行增强")
     p.add_argument('--llm-chunk-size', type=int, default=10, help="提交给LLM的DDL块大小（表数量），默认每次10个表")
+    p.add_argument('--resume', action='store_true', help="如果输出文件已存在，则读取并只对缺失表中文名/表描述的表继续LLM增强")
     args = p.parse_args()
 
     data = extract_from_directory(
@@ -586,6 +705,8 @@ def main() -> None:
         args.project,
         use_llm=bool(args.use_llm),
         llm_chunk_size=int(args.llm_chunk_size),
+        resume=bool(args.resume),
+        output_path=str(args.output),
     )
     payload = json.dumps(data, ensure_ascii=False, indent=2)
 
