@@ -192,6 +192,7 @@ class ColumnInfo:
     value_type: str
     is_primary_key: bool
     is_foreign_key: bool
+    foreign_key: Optional[Dict[str, str]] = None
 
 
 @dataclass
@@ -248,19 +249,48 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
         pk_cols.setdefault((schema, tbl), set()).update(cols)
         ddl_snippets.append(m.group(0).strip())
 
-    fk_cols: Dict[Tuple[str, str], Set[str]] = {}
+    fk_targets: Dict[Tuple[str, str, str], Dict[str, str]] = {}
     for m in re.finditer(
-        r"ALTER\s+TABLE\s+ONLY\s+(?P<table>[^\s]+)\s+ADD\s+CONSTRAINT\s+[^\s]+\s+FOREIGN\s+KEY\s*\((?P<cols>[^\)]*)\)\s+REFERENCES\s+[^;]+;",
+        r"ALTER\s+TABLE\s+ONLY\s+(?P<table>[^\s]+)\s+ADD\s+CONSTRAINT\s+[^\s]+\s+FOREIGN\s+KEY\s*\((?P<src_cols>[^\)]*)\)\s+REFERENCES\s+(?P<target_table>(?:ONLY\s+)?[^\s(]+)\s*\((?P<target_cols>[^\)]*)\)(?:[^;]*)\s*;",
         sql_text,
         flags=re.IGNORECASE,
     ):
         schema, tbl = _parse_qualified_name(m.group('table'), default_schema)
-        cols = [
+        src_cols = [
             _strip_identifier(c.strip())
-            for c in _split_top_level_commas(m.group('cols'))
+            for c in _split_top_level_commas(m.group('src_cols'))
             if c.strip()
         ]
-        fk_cols.setdefault((schema, tbl), set()).update(cols)
+        target_schema, target_tbl = _parse_qualified_name(m.group('target_table'), default_schema)
+        target_table_name = target_tbl if target_schema == default_schema else f'{target_schema}.{target_tbl}'
+        target_cols = [
+            _strip_identifier(c.strip())
+            for c in _split_top_level_commas(m.group('target_cols'))
+            if c.strip()
+        ]
+        if len(src_cols) != len(target_cols):
+            logger.warning(
+                'Foreign key column count mismatch for %s.%s: source=%s target=%s',
+                schema,
+                tbl,
+                src_cols,
+                target_cols,
+            )
+        for src_col, target_col in zip(src_cols, target_cols):
+            key = (schema, tbl, src_col)
+            target = {'target_table': target_table_name, 'target_column': target_col}
+            existing_target = fk_targets.get(key)
+            if existing_target and existing_target != target:
+                logger.warning(
+                    'Multiple foreign keys found for %s.%s.%s; keeping first target=%s and ignoring target=%s',
+                    schema,
+                    tbl,
+                    src_col,
+                    existing_target,
+                    target,
+                )
+                continue
+            fk_targets[key] = target
         ddl_snippets.append(m.group(0).strip())
 
     index_cols: Dict[Tuple[str, str], Set[str]] = {}
@@ -352,17 +382,19 @@ def parse_sql_schema(sql_text: str) -> List[TableInfo]:
                     value_type=col_type,
                     is_primary_key=False,
                     is_foreign_key=False,
+                    foreign_key={},
                 )
             )
 
         pkset = pk_cols.get((schema, tbl), set())
-        fkset = fk_cols.get((schema, tbl), set())
-        if pkset or fkset:
+        if pkset or fk_targets:
             for c in columns:
                 if c.column_name_en in pkset:
                     c.is_primary_key = True
-                if c.column_name_en in fkset:
+                fk_target = fk_targets.get((schema, tbl, c.column_name_en))
+                if fk_target:
                     c.is_foreign_key = True
+                    c.foreign_key = fk_target
 
         tables.append(
             TableInfo(
@@ -495,7 +527,35 @@ def _merge_existing_output_into_result(result: Dict[str, object], existing: Dict
             continue
         existing_table = existing_by_name.get(table_name_en)
         if existing_table:
-            table.update(existing_table)
+            if isinstance(existing_table.get('table_name_ch'), str) and existing_table['table_name_ch'].strip():
+                table['table_name_ch'] = existing_table['table_name_ch']
+            if isinstance(existing_table.get('table_description'), str) and existing_table['table_description'].strip():
+                table['table_description'] = existing_table['table_description']
+
+            result_cols = table.get('columns')
+            existing_cols = existing_table.get('columns')
+            if isinstance(result_cols, list) and isinstance(existing_cols, list):
+                existing_by_name: Dict[str, Dict[str, object]] = {}
+                for col in existing_cols:
+                    if isinstance(col, dict) and isinstance(col.get('column_name_en'), str):
+                        existing_by_name[col['column_name_en']] = col
+
+                for col in result_cols:
+                    if not isinstance(col, dict):
+                        continue
+                    col_name_en = col.get('column_name_en')
+                    if not isinstance(col_name_en, str):
+                        continue
+                    existing_col = existing_by_name.get(col_name_en)
+                    if not existing_col:
+                        continue
+                    if isinstance(existing_col.get('column_name_ch'), str) and existing_col['column_name_ch'].strip():
+                        col['column_name_ch'] = existing_col['column_name_ch']
+                    if isinstance(existing_col.get('column_description'), str) and existing_col['column_description'].strip():
+                        col['column_description'] = existing_col['column_description']
+                    if col.get('foreign_key') is None and existing_col.get('foreign_key') is not None:
+                        col['foreign_key'] = existing_col['foreign_key']
+
             merged += 1
 
     return merged
@@ -641,6 +701,7 @@ def extract_from_directory(
                         'value_type': c.value_type,
                         'is_primary_key': bool(c.is_primary_key),
                         'is_foreign_key': bool(c.is_foreign_key),
+                        'foreign_key': c.foreign_key,
                     }
                     for c in t.columns
                 ],

@@ -1,0 +1,1046 @@
+{
+  "project": "cmt_denormalized",
+  "tables": [
+    {
+      "table_name_en": "Author",
+      "table_name_ch": "作者",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储作者信息，继承自Person和User",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "作者唯一标识，主键，外键指向Person",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "作者类型，默认0",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "Bid",
+      "table_name_ch": "投标",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储投标或提议信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "投标唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "adjustedBy",
+          "column_name_ch": "调整者",
+          "column_description": "投标调整者标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "hasBid_Inv",
+          "column_name_ch": "关联投标",
+          "column_description": "投标反关联标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "Conference",
+      "table_name_ch": "会议",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储会议信息，如名称、日期、网站等",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "会议唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "siteURL",
+          "column_name_ch": "会议网址",
+          "column_description": "会议官方网站URL",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "acceptsHardcopySubmissions",
+          "column_name_ch": "接受纸质提交",
+          "column_description": "是否接受纸质投稿",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "logoURL",
+          "column_name_ch": "徽标网址",
+          "column_description": "会议徽标图片URL",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "date",
+          "column_name_ch": "会议日期",
+          "column_description": "会议举办日期",
+          "value_type": "date",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "会议名称",
+          "column_description": "会议名称",
+          "value_type": "character varying(6)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "reviewsPerPaper",
+          "column_name_ch": "每篇评审数",
+          "column_description": "每篇论文分配的评审人数",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "Document",
+      "table_name_ch": "文档",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储文档基本信息，如论文、评审等",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "文档唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "writtenBy",
+          "column_name_ch": "撰写者",
+          "column_description": "文档撰写者标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "文档类型",
+          "column_description": "文档类型，默认0",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "comment",
+          "column_name_ch": "备注",
+          "column_description": "文档备注或评论",
+          "value_type": "character varying(191)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "Paper",
+      "table_name_ch": "论文",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储论文详细信息，包括标题、决策等",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "论文唯一标识，外键指向Document",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Document",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "paperID",
+          "column_name_ch": "论文编号",
+          "column_description": "论文自定义编号",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "rejectedBy",
+          "column_name_ch": "拒绝者",
+          "column_description": "拒绝该论文的用户标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "readByMeta-Reviewer",
+          "column_name_ch": "元评审者",
+          "column_description": "元评审者阅读标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "hasAuthor",
+          "column_name_ch": "作者",
+          "column_description": "论文作者标识，外键指向Author",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Author",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "title",
+          "column_name_ch": "标题",
+          "column_description": "论文标题",
+          "value_type": "character varying(113)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "hasDecision",
+          "column_name_ch": "决策",
+          "column_description": "论文决策标识，外键指向Rejection",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Rejection",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "acceptedBy",
+          "column_name_ch": "接受者",
+          "column_description": "接受该论文的用户标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "类型",
+          "column_description": "论文类型，默认0",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "评审者",
+          "column_description": "论文评审者标识，复合主键之一",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "Person",
+      "table_name_ch": "人员",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储所有人员基本信息，如姓名、邮箱",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "人员唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "name",
+          "column_name_ch": "姓名",
+          "column_description": "人员姓名",
+          "value_type": "character varying(22)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "email",
+          "column_name_ch": "邮箱",
+          "column_description": "人员电子邮件地址",
+          "value_type": "character varying(41)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "assignedByReviewer",
+          "column_name_ch": "指派者",
+          "column_description": "由评审者指派的人员标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "人员类型",
+          "column_description": "人员类型，默认0",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "Preference",
+      "table_name_ch": "偏好",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储用户偏好或设置",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "偏好唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommittee",
+      "table_name_ch": "程序委员会",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储程序委员会信息",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "程序委员会唯一标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "label",
+          "column_name_ch": "标签",
+          "column_description": "程序委员会标签或名称",
+          "value_type": "character varying(29)",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeChair",
+      "table_name_ch": "程序委员会主席",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "程序委员会主席，继承自Person和ProgramCommitteeMember",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "主席唯一标识，外键指向Person",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "ProgramCommitteeMember",
+      "table_name_ch": "程序委员会成员",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "程序委员会成员信息，包括最大论文数和添加者",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "标识",
+          "column_description": "成员唯一标识，外键指向Person",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "maxPapers",
+          "column_name_ch": "最大论文数",
+          "column_description": "该成员最多可评审的论文数",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "addedBy",
+          "column_name_ch": "添加者",
+          "column_description": "添加该成员的用户标识",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "Rejection",
+      "table_name_ch": "拒绝",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储论文拒绝的决定记录",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "拒绝编号",
+          "column_description": "唯一标识拒绝记录的编号",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "SubjectArea",
+      "table_name_ch": "主题领域",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储论文的主题领域分类",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "主题领域编号",
+          "column_description": "唯一标识主题领域的编号",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "User",
+      "table_name_ch": "用户",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "存储系统用户信息，关联具体人员",
+      "columns": [
+        {
+          "column_name_en": "ID",
+          "column_name_ch": "用户ID",
+          "column_description": "用户唯一标识，关联Person表",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "acceptPaper",
+          "column_name_ch": "接受论文",
+          "column_description": "标记用户是否接受论文（布尔值）",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "TYPE",
+          "column_name_ch": "用户类型",
+          "column_description": "用户类型标识（如管理员、作者等）",
+          "value_type": "integer",
+          "is_primary_key": false,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "assignReviewer",
+      "table_name_ch": "分配审稿人",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员为审稿人分配任务的关系表",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行分配的管理员用户ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Reviewer",
+          "column_name_ch": "审稿人",
+          "column_description": "被分配的审稿人用户ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "co-writePaper",
+      "table_name_ch": "合著论文",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录合著作者与论文的关联关系",
+      "columns": [
+        {
+          "column_name_en": "Co-author",
+          "column_name_ch": "合著作者",
+          "column_description": "合著作者的ID，关联Author表",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Author",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文",
+          "column_description": "论文的ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "detailsEnteredBy",
+      "table_name_ch": "详情录入",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录会议详情由哪个管理员录入的关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "会议的ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "录入详情的管理员用户ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "enableVirtualMeeting",
+      "table_name_ch": "启用虚拟会议",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员为会议启用虚拟会议功能的关系",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "启用虚拟会议的管理员ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "启用虚拟会议的会议ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "endReview",
+      "table_name_ch": "结束审阅",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录程序委员会主席结束审阅的关系",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommitteeChair",
+          "column_name_ch": "程序委员会主席",
+          "column_description": "执行结束操作的程序委员会主席ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "ProgramCommitteeChair",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Review",
+          "column_name_ch": "审阅",
+          "column_description": "被结束的审阅文档ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Document",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "enterReviewCriteria",
+      "table_name_ch": "录入审阅标准",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员为会议录入审阅标准的关系",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "录入标准的管理员ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "对应的会议ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "finalizePaperAssignment",
+      "table_name_ch": "定稿论文分配",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员最终确定论文分配的关系",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员",
+          "column_description": "执行定稿的管理员ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议",
+          "column_description": "定稿的会议ID",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "hardcopyMailingManifestsP",
+      "table_name_ch": "邮寄清单",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员为会议生成纸质邮寄清单的关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "关联的管理员用户标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConferenceMember",
+      "table_name_ch": "会议成员",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录会议与会议成员之间的关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "成员ID",
+          "column_description": "关联的会议成员标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasConflictOfInterest",
+      "table_name_ch": "利益冲突",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录人员与文档之间的利益冲突关系",
+      "columns": [
+        {
+          "column_name_en": "Person",
+          "column_name_ch": "人员ID",
+          "column_description": "关联的人员标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Person",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Document",
+          "column_name_ch": "文档ID",
+          "column_description": "关联的文档标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Document",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasProgramCommitteeMember",
+      "table_name_ch": "委员会成员",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录程序委员会与其成员之间的关系",
+      "columns": [
+        {
+          "column_name_en": "ProgramCommittee",
+          "column_name_ch": "委员会ID",
+          "column_description": "关联的程序委员会标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "ProgramCommittee",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "委员ID",
+          "column_description": "关联的程序委员会成员标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "hasSubjectArea",
+      "table_name_ch": "论文领域",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录论文与学科领域之间的关系",
+      "columns": [
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "关联的论文标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "SubjectArea",
+          "column_name_ch": "领域ID",
+          "column_description": "关联的学科领域标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "SubjectArea",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "markConflictOfInterest",
+      "table_name_ch": "冲突标记",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录会议成员标记论文利益冲突的关系",
+      "columns": [
+        {
+          "column_name_en": "ConferenceMember",
+          "column_name_ch": "成员ID",
+          "column_description": "关联的会议成员标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "关联的论文标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "paperAssignmentToolsRunBy",
+      "table_name_ch": "分配工具",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员为会议运行论文分配工具的关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "关联的管理员用户标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "reviewerBiddingStartedBy",
+      "table_name_ch": "审稿竞标",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员启动审稿人竞标的关系",
+      "columns": [
+        {
+          "column_name_en": "Conference",
+          "column_name_ch": "会议ID",
+          "column_description": "关联的会议标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Conference",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "关联的管理员用户标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        }
+      ]
+    },
+    {
+      "table_name_en": "setMaxPapers",
+      "table_name_ch": "最大论文",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录管理员设置程序委员会成员最大论文数的关系",
+      "columns": [
+        {
+          "column_name_en": "Administrator",
+          "column_name_ch": "管理员ID",
+          "column_description": "关联的管理员用户标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "User",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "ProgramCommitteeMember",
+          "column_name_ch": "委员ID",
+          "column_description": "关联的程序委员会成员标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    },
+    {
+      "table_name_en": "submitPaper",
+      "table_name_ch": "提交论文",
+      "db_name_en": "cmt_denormalized",
+      "table_description": "记录作者提交论文的关系",
+      "columns": [
+        {
+          "column_name_en": "Author",
+          "column_name_ch": "作者ID",
+          "column_description": "关联的作者标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "foreign_key": {
+            "target_table": "Author",
+            "target_column": "ID"
+          }
+        },
+        {
+          "column_name_en": "Paper",
+          "column_name_ch": "论文ID",
+          "column_description": "关联的论文标识",
+          "value_type": "integer",
+          "is_primary_key": true,
+          "is_foreign_key": false,
+          "foreign_key": {}
+        }
+      ]
+    }
+  ]
+}
